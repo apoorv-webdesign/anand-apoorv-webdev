@@ -41,3 +41,14 @@ body {
     background-color:#D3D3D3;
     border-color: #e7e7e7;
 }
+.list-group li{
+    border: 0 none;
+}
+
+.list-group ul{
+    border: 0 none;
+}
+
+.panel {
+    border: 0 none;
+}
