@@ -2,6 +2,42 @@ input.form-control {
     margin-bottom: 5px;
 }
 
+textarea.form-control,
+select.form-control{
+    margin-bottom: 5px;
+}
+
 body {
-    padding-top: 36px;
+    padding-top: 70px;
+}
+
+.wd-widget{
+    margin-bottom:10px;
+}
+
+.wd-widget >img {
+    width: 100%;
+}
+
+.wd-widget >iframe {
+    width: 100%;
+}
+
+.wd-widget > .wd-widget-toolbar{
+    position: absolute;
+    right: 15px;
+    background: white;
+    opacity: 0.9;
+    pading: 5px;
+    border-bottom-left-radius: 10px;
+}
+
+.navbar-default {
+    background-color:#D3D3D3;
+    border-color: #e7e7e7;
+}
+
+.navbar a{
+    background-color:#D3D3D3;
+    border-color: #e7e7e7;
 }
