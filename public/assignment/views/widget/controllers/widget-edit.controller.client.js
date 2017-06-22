@@ -33,7 +33,7 @@
         }
 
         function deleteWidget() {
-            widgetService.deleteWidget(widgetId);
+            widgetService.deleteWidget(model.widgetId);
             $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page/'+model.pageId+'/widget');
         }
     }

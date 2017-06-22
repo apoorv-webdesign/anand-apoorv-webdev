@@ -12,7 +12,7 @@
         model.userId = $routeParams['userId'];
         model.websiteId = $routeParams['websiteId'];
         model.pageId = $routeParams['pageId'];
-        model.trust = trust;
+        model.trustUrl = trustUrl;
         model.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
         model.widgetUrl = widgetUrl;
 
@@ -30,7 +30,8 @@
             return $sce.trustAsResourceUrl(embedUrl);
         }
 
-        function trust(html) {
+        function trustUrl(html) {
+            //console.log(html);
             // scrubbing the html
             return $sce.trustAsHtml(html);
         }
