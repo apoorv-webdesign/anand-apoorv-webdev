@@ -1,28 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Widget-list</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../css/style.css" rel="stylesheet"/>
-</head>
-
-<body>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-text pull-left paddingExtra">
-            <a class="navbar-link" href="../../page/templates/page-list.html">
+            <a class="navbar-link" href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page">
                 <span class="glyphicon glyphicon-chevron-left pull-left"></span>
             </a>
         </div>
         <div class="navbar-text pull-right">
-            <a href="widget-choose.html" class="navbar-link">
+            <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new" class="navbar-link">
                 <span class="glyphicon glyphicon-plus pull-right"></span>
             </a>
         </div>
         <div class="navbar-header">
-            <a class="navbar-brand no-left-padding no-left-margin" href="widget-list.html">
+            <a class="navbar-brand no-left-padding no-left-margin" href="">
                 Widgets
             </a>
         </div>
@@ -30,92 +19,23 @@
 </nav>
 
 <div class="container-fluid">
-    <div class="wd-widget">
-        <div class="wd-widget-toolbar">
-            <a href="widget-heading.html">
-                <span class="glyphicon glyphicon-cog"></span>
+    <div class="wd-widget" ng-repeat="widget in model.widgets">
+        <div class="drag-n-edit">
+            <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
+                <span class="glyphicon glyphicon-cog pull-right wd-widget-toolbar"></span>
             </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
+            <span class="glyphicon glyphicon-align-justify pull-right wd-widget-toolbar"></span>
         </div>
-        <h1>GIZMODO</h1>
-    </div>
-    <div class="wd-widget">
-        <div class="wd-widget-toolbar">
-            <a href="widget-heading.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <h3>The Mummy Is Monstrous, Just for All the Wrong Reasons</h3>
-    </div>
-    <div class="wd-widget">
-        <div class="wd-widget-toolbar">
-            <a href="widget-image.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <img src="https://i.kinja-img.com/gawker-media/image/upload/s--byPO_39h--/c_scale,fl_progressive,q_80,w_800/auu26r9llejb4nfuna6v.jpg"/>
-    </div>
-    <div class="wd-widget">
-        <div class="wd-widget-toolbar">
-            <a href="widget-heading.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <p>The Mummy is the first movie in the “Dark Universe,” a planned series of films that will intertwine the
-            ghoulish tales of the classic Universal Monsters. But it contains zero scares and is devoid of any sense of
-            fun. What it does have is whole lot of Tom Cruise, and a Mummy whose motivation feels very, very
-            problematic.</p>
-    </div>
-    <div class="wd-widget">
-        <div class="wd-widget-toolbar">
-            <a href="widget-youtube.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <iframe class="youtube" src="https://www.youtube.com/embed/IjHgzkQM2Sg" frameborder="0"
-                allowfullscreen></iframe>
-    </div>
-    <div class="wd-widget">
-        <div class="wd-widget-toolbar">
-            <a href="widget-heading.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <p id="eow-description" class=""><a href="/results?q=%23TheMummy" class="yt-uix-sessionlink  "
-                                            data-sessionlink="itct=CDEQ6TgYACITCI-G2YCyrNQCFSaAnAodFe0Aeyj4HQ"
-                                            data-url="/results?q=%23TheMummy">#TheMummy</a><br>In theaters June 9,
-            2017<br>www.themummy.com<br>--<br>Tom Cruise headlines a spectacular, all-new cinematic version of the
-            legend that has fascinated cultures all over the world since the dawn of civilization: The Mummy. <br><br>Thought
-            safely entombed in a tomb deep beneath the unforgiving desert, an ancient princess (Sofia Boutella of
-            Kingsman: The Secret Service and Star Trek Beyond) whose destiny was unjustly taken from her is awakened in
-            our current day, bringing with her malevolence grown over millennia and terrors that defy human
-            comprehension.<br><br>From the sweeping sands of the Middle East through hidden labyrinths under
-            modern-day London, The Mummy brings a surprising intensity and balance of wonder and thrills in an
-            imaginative new take that ushers in a new world of gods and monsters. <br><br>Cruise is joined by a cast
-            including Annabelle Wallis (upcoming King Arthur, television’s Peaky Blinders), Jake Johnson (Jurassic
-            World), Courtney B. Vance (TV’s American Crime Story: The People V. O.J. Simpson) and Oscar® winner Russell
-            Crowe (Gladiator).<br><br>The creative team on this action-adventure event is led by director/producer Alex
-            Kurtzman and producer Chris Morgan, who have been instrumental in growing some of the most successful
-            franchises of the past several years—with Kurtzman writing or producing entries in the Transformers, Star
-            Trek and Mission: Impossible series, and Morgan being the narrative engineer of the Fast &amp; Furious saga
-            as it has experienced explosive growth from its third chapter on. Sean Daniel, who produced the most recent
-            Mummy trilogy, produces alongside Kurtzman and Morgan. www.themummy.com</p>
+        <div ng-include="model.widgetUrl(widget)"></div>
     </div>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="navbar-text pull-right paddingRight">
-            <a href="../user/profile.html">
+            <a href="#!/user/{{model.userId}}">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </div>
     </div>
 </nav>
-</body>
-</html>

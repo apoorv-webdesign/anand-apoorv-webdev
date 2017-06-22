@@ -1,67 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Widget-Youtube</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../css/style.css" rel="stylesheet"/>
-</head>
-
-<body>
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-text pull-right">
-            <a href="widget-list.html" class="navbar-link">
-                <span class="glyphicon glyphicon-ok"></span>
-            </a>
-        </div>
-        <div class="navbar-text pull-left">
-            <a href="widget-list.html" class="navbar-link">
-                <span class="glyphicon  glyphicon-chevron-left"></span>
-            </a>
-        </div>
-        <div class="navbar-header">
-            <a class="navbar-brand" href="widget-youtube.html">
-                Widget Editor
-            </a>
-        </div>
-    </div>
-</nav>
-
-<div class="container-fluid">
-    <label for="name"> Name</label>
-    <input class="form-control"
-           id="name"
-           value=""
-           placeholder="youtude video name">
-    <label for="text"> Text</label>
-    <input class="form-control"
-           id="text"
-           value=""
-           placeholder="youtube video text">
-    <label for="url"> URL</label>
-    <input class="form-control"
-           id="url"
-           value="https://youtube.com/afqfsafaf"
-           placeholder="youtube video url">
-    <label for="width"> Width</label>
-    <input class="form-control"
-           id="width"
-           value="100%"
-           placeholder="youtube video width">
-    <a href="widget-list.html" class="btn btn-danger btn-block"> Delete</a>
-</div>
-
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid">
-        <div class="navbar-text pull-right paddingRight">
-            <a href="../user/profile.html">
-                <span class="glyphicon glyphicon-user"></span>
-            </a>
-        </div>
-    </div>
-</nav>
-
-</body>
-</html>
+<iframe width="{{widget.width}}"
+        height="315"
+        ng-src="{{model.trustYoutubeUrl(widget.url)}}"
+        frameborder="0"
+        allowfullscreen
+        class="visible-xs">
+</iframe>
+<iframe width="{{widget.width}}"
+        height="500"
+        ng-src="{{model.trustYoutubeUrl(widget.url)}}"
+        frameborder="0"
+        allowfullscreen
+        class="hidden-xs">
+</iframe>

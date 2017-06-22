@@ -6,9 +6,9 @@
         .module('WAM')
         .controller('profileController', profileController);
 
-    function profileController($scope, $routeParams, userService) {
+    function profileController($location, $routeParams, userService) {
         var model = this;
-        var usersId = $routeParams['userId'];
+        var userId = $routeParams['userId'];
 
         model.update = update;
         model.user = userService.findUserById(userId);

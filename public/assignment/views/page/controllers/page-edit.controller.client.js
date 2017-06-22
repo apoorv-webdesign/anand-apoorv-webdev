@@ -4,26 +4,33 @@
 (function () {
     angular
         .module('WAM')
-        .controller('websiteEditController', websiteEditController);
+        .controller('pageEditController', pageEditController);
 
-    function websiteEditController($routeParams,
+    function pageEditController($routeParams,
                                    $location,
-                                   websiteService) {
+                                   pageService) {
         var model = this;
 
         model.userId = $routeParams['userId'];
-        model.websiteId = $routeParams.websiteId;
-        model.deleteWebsite = deleteWebsite;
+        model.websiteId = $routeParams['websiteId'];
+        model.pageId = $routeParams['pageId'];
 
-        function init() {
-            model.websites = websiteService.findAllWebsitesForUser(model.userId);
-            model.website = websiteService.findWebsiteById(model.websiteId);
+        model.updatePage = updatePage;
+        model.deletePage = deletePage;
+
+        model.pages = pageService.findPagesByWebsiteId(model.websiteId);
+        model.page = pageService.findPageById(model.pageId);
+
+        function updatePage(page) {
+            page._id = model.pageId;
+            page.websiteId = model.websiteId;
+            pageService.updatePage(model.pageId, page);
+            $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page');
         }
-        init();
 
-        function deleteWebsite(websiteId) {
-            websiteService.deleteWebsite(websiteId);
-            $location.url('/user/'+model.userId+'/website');
+        function deletePage(pageId) {
+            pageService.deletePage(pageId);
+            $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page');
         }
     }
 })();

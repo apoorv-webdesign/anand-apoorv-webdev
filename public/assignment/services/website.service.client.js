@@ -1,61 +1,67 @@
 /**
  * Created by Apoorv on 21-06-2017.
  */
-(function(){
+(function () {
     angular
         .module('WAM')
-        .factory('userService', userService);
+        .service('websiteService', websiteService);
 
-    function userService() {
-        var users = [
-            {_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder"  },
-            {_id: "234", username: "bob",      password: "bob",      firstName: "Bob",    lastName: "Marley"  },
-            {_id: "345", username: "charly",   password: "charly",   firstName: "Charly", lastName: "Garcia"  },
-            {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi" }
+    function websiteService() {
+        this.findAllWebsitesForUser = findAllWebsitesForUser;
+        this.findWebsiteById = findWebsiteById;
+        this.deleteWebsite = deleteWebsite;
+        this.createWebsite = createWebsite;
+        this.updateWebsite = updateWebsite;
+
+        var websites = [
+            { "_id": "123", "name": "Facebook",    "developerId": "456", "description": "Lorem" },
+            { "_id": "234", "name": "Tweeter",     "developerId": "456", "description": "Lorem" },
+            { "_id": "456", "name": "Gizmodo",     "developerId": "456", "description": "Lorem" },
+            { "_id": "890", "name": "Go",          "developerId": "123", "description": "Lorem" },
+            { "_id": "567", "name": "Tic Tac Toe", "developerId": "123", "description": "Lorem" },
+            { "_id": "678", "name": "Checkers",    "developerId": "123", "description": "Lorem" },
+            { "_id": "789", "name": "Chess",       "developerId": "234", "description": "Lorem" }
         ];
 
-        var api = {
-            createUser: createUser,
-            findUserById: findUserById,
-            findUserByUsername: findUserByUsername,
-            findUserByCredentials: findUserByCredentials
-        };
-        return api;
-
-        function createUser(user) {
-            user._id = (new Date()).getTime() + "";
-            user.created = new Date();
-            users.push(user);
-            return user;
+        function createWebsite(userId, website) {
+            createId = websites[websites.length -1]._id;
+            newId = parseInt(createId) + 1 + '';
+            website._id = newId;
+            //page.websiteId = websiteId;
+            website.developerId = userId;
+            websites.push(website);
         }
 
-        function findUserByUsername(username) {
-            var user = users.find(function (user) {
-                return user.username === username;
-            });
-            if(typeof user === 'undefined') {
-                return null;
-            }
-            return user;
+        function deleteWebsite(websiteId) {
+            var website = findWebsiteById(websiteId);
+            var index = websites.indexOf(website);
+            websites.splice(index, 1);
         }
 
-        function findUserById(userId) {
-            for(var u in users) {
-                if(users[u]._id === userId)
-                    return users[u];
-            }
-            return null;
-        }
-
-        function findUserByCredentials(username, password) {
-            for(var u in users) {
-                var user = users[u];
-                if( user.username === username &&
-                    user.password === password) {
-                    return user;
+        function updateWebsite(websiteId, website){
+            for(var w in websites){
+                if(websites[w]._id === websiteId){
+                    websites[w] = website;
                 }
             }
-            return null;
+        }
+
+        function findWebsiteById(websiteId) {
+            return websites.find(function (website) {
+                return website._id === websiteId;
+            });
+        }
+
+        function findAllWebsitesForUser(userId) {
+            var results = [];
+
+            for(var v in websites) {
+                if(websites[v].developerId === userId) {
+                    results.push(websites[v]);
+                }
+            }
+
+            return results;
         }
     }
 })();

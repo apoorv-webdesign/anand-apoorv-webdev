@@ -1,41 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Register</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../css/style.css" rel="stylesheet"/>
-</head>
-<body>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <div class="navbar-text pull-left paddingExtra">
-            <a href="../../index.html">
-                <span class="glyphicon glyphicon-chevron-left pull-left navbar-link"></span>
-            </a>
-        </div>
         <div class="navbar-header">
-            <a class="navbar-brand no-left-padding no-left-margin" href="register.html">
+            <a class="navbar-brand no-left-padding no-left-margin" href="#!/register">
                 Register
             </a>
         </div>
     </div>
 </nav>
 <div class="container">
+    <div ng-show="model.message" class="alert alert-success">
+        {{model.message}}
+    </div>
     <input type="text"
+           id="username"
+           ng-model="username"
            class="form-control"
            placeholder="username"/>
     <input type="password"
+           id="password"
+           ng-model="password"
            class="form-control"
            placeholder="password"/>
     <input type="password"
+           ng-model="verifyPassword"
+           id="verifyPassword"
            class="form-control"
            placeholder="verify password"/>
     <a class="btn btn-primary btn-block"
-       href="profile.html">Register</a>
+       ng-click="model.register(username,password,verifyPassword)">
+        Register
+    </a>
     <a class="btn btn-danger  btn-block"
-       href="login.html">Cancel</a>
+       href="#!/login">Cancel</a>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
@@ -43,5 +39,3 @@
         </div>
     </div>
 </nav>
-</body>
-</html>

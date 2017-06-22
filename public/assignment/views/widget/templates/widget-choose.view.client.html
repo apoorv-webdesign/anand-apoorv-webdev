@@ -1,23 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Website-choose</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../css/style.css" rel="stylesheet"/>
-</head>
-<body>
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-text pull-left paddingExtra">
-            <a class="navbar-link" href="widget-list.html">
+            <a class="navbar-link" href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}">
                 <span class="glyphicon glyphicon-chevron-left pull-left"></span>
             </a>
         </div>
+        <div class="navbar-text pull-right paddingExtra">
+            <a class="navbar-link" href=#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+                <span class="glyphicon glyphicon-ok pull-right"></span>
+            </a>
+        </div>
         <div class="navbar-header">
-            <a class="navbar-brand no-left-padding no-left-margin" href="widget-choose.html">
+            <a class="navbar-brand no-left-padding no-left-margin" href="">
                 Choose Widget
             </a>
         </div>
@@ -27,52 +21,52 @@
 <div class="container-fluid">
     <ul class="list-group">
         <li class="list-group-item">
-            <a href="widget-heading.html">
+            <a ng-click="model.createWidget('HEADING')">
                 Header
             </a>
         </li>
         <li class="list-group-item">
-            <a href="widget-choose.html">
+            <a href="">
                 Label
             </a>
         </li>
         <li class="list-group-item">
-            <a href="widget-choose.html">
+            <a ng-click="model.createWidget('HTML')">
                 HTML
             </a>
         </li>
         <li class="list-group-item">
-            <a href="widget-choose.html">
+            <a href="">
                 Text Input
             </a>
         </li>
         <li class="list-group-item">
-            <a href="widget-choose.html">
+            <a href="widget-choose.view.client.html">
                 Link
             </a>
         </li>
         <li class="list-group-item">
-            <a href="widget-choose.html">
+            <a href="">
                 Button
             </a>
         </li>
         <li class="list-group-item">
-            <a href="widget-image.html">
+            <a ng-click="model.createWidget('IMAGE')">
                 Image
             </a>
         </li>
         <li class="list-group-item">
-            <a href="widget-youtube.html">
+            <a ng-click=model.createWidget('YOUTUBE')>
                 YouTube
             </a>
         </li>
         <li class="list-group-item">
-            <a href="widget-choose.html">
+            <a href="">
                 Data Table
             </a>
         </li>
         <li class="list-group-item">
-            <a href="widget-choose.html">
+            <a href="">
                 Repeater
             </a>
         </li>
@@ -83,12 +77,9 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="navbar-text pull-right paddingRight">
-            <a href="../user/profile.html">
+            <a href="#!/user/{{model.userId}}">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </div>
     </div>
 </nav>
-
-</body>
-</html>

@@ -4,25 +4,25 @@
 (function () {
     angular
         .module('WAM')
-        .controller('websiteNewController', websiteNewController);
+        .controller('pageNewController', pageNewController);
 
-    function websiteNewController($routeParams,
+    function pageNewController($routeParams,
                                   $location,
-                                  websiteService) {
+                                  pageService) {
         var model = this;
 
         model.userId = $routeParams['userId'];
-        model.createWebsite = createWebsite;
+        model.websiteId = $routeParams['websiteId'];
+        model.createPage = createPage;
 
         function init() {
-            model.websites = websiteService.findAllWebsitesForUser(model.userId);
+            model.pages = pageService.findPagesByWebsiteId(model.websiteId);
         }
         init();
 
-        function createWebsite(website) {
-            website.developerId = model.userId;
-            websiteService.createWebsite(website);
-            $location.url('/user/'+model.userId+'/website');
+        function createPage(page) {
+            pageService.createPage(model.websiteId, page);
+            $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page');
         }
     }
 })();

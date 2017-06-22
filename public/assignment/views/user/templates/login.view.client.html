@@ -2,12 +2,12 @@
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-text pull-left paddingExtra">
-                <a href="../../index.html">
+                <a href="#!/">
                     <span class="glyphicon glyphicon-chevron-left pull-left navbar-link"></span>
                 </a>
             </div>
             <div class="navbar-header">
-                <a class="navbar-brand no-left-padding no-left-margin" href="login.view.client.html">
+                <a class="navbar-brand no-left-padding no-left-margin" href="#!/login">
                     Login
                 </a>
             </div>
@@ -17,17 +17,22 @@
         <div ng-show="model.message">
             <h3 class="alert alert-info">{{model.message}}</h3>
         </div>
+        <label for="username">Username</label>
         <input ng-model="username"
                type="text"
+               id="username"
                class="form-control"
                placeholder="username"/>
+        <label for="password">Password</label>
         <input ng-model="password"
                type="password"
+               id="password"
                class="form-control"
                placeholder="password"/>
-        <a ng-click="model.login(username, password)" class="btn btn-primary btn-block">
-            Login
-        </a>
+        <input ng-click="model.login(username, password)"
+               class="btn btn-primary btn-block"
+               type="submit"
+               value="Login">
         <a class="btn btn-success btn-block"
            href="#!/register">Register</a>
     </div>

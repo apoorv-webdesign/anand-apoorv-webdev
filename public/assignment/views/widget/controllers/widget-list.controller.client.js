@@ -4,26 +4,35 @@
 (function () {
     angular
         .module('WAM')
-        .controller('loginController', loginController);
+        .controller('widgetListController', widgetListController);
 
-    function loginController($scope) {
+    function widgetListController($sce, $routeParams, widgetService) {
         var model = this;
 
-        model.login = login;
+        model.userId = $routeParams['userId'];
+        model.websiteId = $routeParams['websiteId'];
+        model.pageId = $routeParams['pageId'];
+        model.trust = trust;
+        model.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
+        model.widgetUrl = widgetUrl;
 
-        function login(username, password) {
-            var found = userService.findUser(username, password);
-            if (found !== null) {
-                $location.url('/user/'+ found._id);//.message = "welcome " + username;
-            }
-            else {
-                if(!username || !password){
-                    model.message = "Please enter username and password";
-                }
-                else {
-                    model.message = "sorry, username: " + username + " does not exists"
-                }
-            }
+        model.widgets = widgetService.findWidgetsByPageId(model.pageId);
+
+        function widgetUrl(widget) {
+            var url = 'views/widget/templates/widget-'+widget.widgetType.toLowerCase()+'.view.client.html';
+            return url;
+        }
+
+        function getYouTubeEmbedUrl(linkUrl) {
+            var embedUrl = "https://www.youtube.com/embed/";
+            var linkUrlParts = linkUrl.split('/');
+            embedUrl += linkUrlParts[linkUrlParts.length - 1];
+            return $sce.trustAsResourceUrl(embedUrl);
+        }
+
+        function trust(html) {
+            // scrubbing the html
+            return $sce.trustAsHtml(html);
         }
     }
 })();

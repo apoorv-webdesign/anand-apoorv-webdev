@@ -6,72 +6,20 @@
             </a>
         </div>
         <div class="navbar-text pull-right paddingExtra">
-            <a class="navbar-link" href=#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+            <a class="navbar-link"ng-click="model.updateWidget(model.widget)">
                 <span class="glyphicon glyphicon-ok pull-right"></span>
             </a>
         </div>
         <div class="navbar-header">
             <a class="navbar-brand no-left-padding no-left-margin" href="">
-                Choose Widget
+                Widget Edit
             </a>
         </div>
     </div>
 </nav>
 
 <div class="container-fluid">
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a ng-click="model.createWidget('HEADING')">
-                Header
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="">
-                Label
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a ng-click="model.createWidget('HTML')">
-                HTML
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="">
-                Text Input
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="widget-choose.view.client.html">
-                Link
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="">
-                Button
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a ng-click="model.createWidget('IMAGE')">
-                Image
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a ng-click=model.createWidget('YOUTUBE')>
-                YouTube
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="">
-                Data Table
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="">
-                Repeater
-            </a>
-        </li>
-
-    </ul>
+    <ng-include src="model.editWidgetUrl(model.widget)"></ng-include>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">

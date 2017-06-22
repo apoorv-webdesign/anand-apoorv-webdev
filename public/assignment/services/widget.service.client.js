@@ -4,49 +4,70 @@
 (function () {
     angular
         .module('WAM')
-        .service('websiteService', websiteService);
+        .service('widgetService', widgetService);
 
-    function websiteService() {
-        this.findAllWebsitesForUser = findAllWebsitesForUser;
-        this.findWebsiteById = findWebsiteById;
-        this.deleteWebsite = deleteWebsite;
-        this.createWebsite = createWebsite;
+    function widgetService() {
 
-        var websites = [
-            { "_id": "123", "name": "Facebook",    "developerId": "456", "description": "Lorem" },
-            { "_id": "234", "name": "Tweeter",     "developerId": "456", "description": "Lorem" },
-            { "_id": "456", "name": "Gizmodo",     "developerId": "456", "description": "Lorem" },
-            { "_id": "890", "name": "Go",          "developerId": "123", "description": "Lorem" },
-            { "_id": "567", "name": "Tic Tac Toe", "developerId": "123", "description": "Lorem" },
-            { "_id": "678", "name": "Checkers",    "developerId": "123", "description": "Lorem" },
-            { "_id": "789", "name": "Chess",       "developerId": "234", "description": "Lorem" }
-        ];
+        var widgets = [
+                { "_id": "123", "widgetType": "HEADING", "pageId": "321", "size": 2, "text": "GIZMODO"},
+                { "_id": "234", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
+                { "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
+                    "url": "http://lorempixel.com/400/200/"},
+                { "_id": "456", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"},
+                { "_id": "567", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
+                { "_id": "678", "widgetType": "YOUTUBE", "pageId": "321", "width": "100%",
+                    "url": "https://youtu.be/AM2Ivdi9c4E" },
+                { "_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"}
+            ];
 
-        function createWebsite(website) {
-            website._id = (new Date()).getTime() + "";
-            websites.push(website);
+        var api = {
+            createWidget: createWidget,
+            findWidgetById: findWidgetById,
+            findWidgetsByPageId: findWidgetsByPageId,
+            updateWidget: updateWidget,
+            deleteWidget: deleteWidget
+        };
+        return api;
+
+        function createWidget(pageId, widget) {
+            createId = widgets[widgets.length -1]._id;
+            newId = parseInt(createId) + 1 + '';
+            widget._id = newId;
+            widget.pageId = pageId;
+            widgets.push(widget);
+            return newId;
         }
 
-        function deleteWebsite(websiteId) {
-            var website = findWebsiteById(websiteId);
-            var index = websites.indexOf(website);
-            websites.splice(index, 1);
+        function updateWidget(widgetId, widget) {
+            for(v in widgets){
+                if(widgets[v].id === widgetId){
+                    widgets[v] = widget;
+                }
+            }
         }
 
-        function findWebsiteById(websiteId) {
-            return websites.find(function (website) {
-                return website._id === websiteId;
-            });
+        function deleteWidget(widgetId) {
+            var widget = findWidgetById(widgetId);
+            var index = widgets.indexOf(widget);
+            widgets.splice(index, 1);
         }
 
-        function findAllWebsitesForUser(userId) {
+        function findWidgetById(widgetId) {
+            //console.log(widgetId);
+            for(v in widgets){
+                if(widgets[v]._id === widgetId){
+                    return widgets[v];
+                }
+            }
+
+        }
+
+        function findWidgetsByPageId(pageId) {
             var results = [];
 
-            for(var v in websites) {
-                if(websites[v].developerId === userId) {
-                    websites[v].created = new Date();
-                    websites[v].accessed = new Date();
-                    results.push(websites[v]);
+            for(var v in widgets) {
+                if(widgets[v].pageId === pageId) {
+                    results.push(widgets[v]);
                 }
             }
 

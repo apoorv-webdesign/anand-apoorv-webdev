@@ -1,28 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Page-List</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../css/style.css" rel="stylesheet"/>
-</head>
-<body>
-
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-text pull-left paddingExtra">
-            <a class="navbar-link" href="../../website/templates/website-list.html">
+            <a class="navbar-link" href="#!/user/{{model.userId}}/website">
                 <span class="glyphicon glyphicon-chevron-left pull-left"></span>
             </a>
         </div>
         <div class="navbar-text pull-right">
-            <a href="page-new.html" class="navbar-link">
+            <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/new" class="navbar-link">
                 <span class="glyphicon glyphicon-plus pull-right"></span>
             </a>
         </div>
         <div class="navbar-header">
-            <a class="navbar-brand no-left-padding no-left-margin" href="page-list.html">
+            <a class="navbar-brand no-left-padding no-left-margin">
                 Pages
             </a>
         </div>
@@ -31,58 +20,51 @@
 
 <div class="container-fluid">
     <ul class="list-group">
-        <li class="list-group-item">
-            <a href="../../widget/templates/widget-list.html">
-                Blog Post
-            </a>
-            <a href="page-edit.html">
-                <span class="glyphicon glyphicon-cog pull-right"></span>
-            </a>
+        <li class="list-group-item active">
+            <div class="row">
+                <div class="col-lg-5 col-md-8 col-xs-11">
+                    Name
+                </div>
+                <div class="col-lg-3 visible-lg">
+                    Created
+                </div>
+                <div class="col-md-3 hidden-sm hidden-xs">
+                    Accessed
+                </div>
+                <div class="col-xs-1">
+                </div>
+            </div>
         </li>
-        <li class="list-group-item">
-            <a href="../../widget/templates/widget-list.html">
-                Blogs
-            </a>
-            <a href="page-edit.html">
-                <span class="glyphicon glyphicon-cog pull-right"></span>
-            </a>
+        <li class="list-group-item" ng-repeat="page in model.pages">
+            <div class="row">
+                <div class="col-lg-5 col-md-8 col-xs-11">
+                    <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/widget">
+                        {{page.name}}
+                    </a>
+                </div>
+                <div class="col-lg-3 visible-lg">
+                    1/1/1970
+                </div>
+                <div class="col-md-3 hidden-sm hidden-xs">
+                    1/1/1970
+                </div>
+                <div class="col-xs-1">
+                    <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}">
+                        <span class="glyphicon glyphicon-cog pull-right"></span>
+                    </a>
+                </div>
+            </div>
         </li>
-        <li class="list-group-item">
-            <a href="../../widget/templates/widget-list.html">
-                Home
-            </a>
-            <a href="page-edit.html">
-                <span class="glyphicon glyphicon-cog pull-right"></span>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="../../widget/templates/widget-list.html">
-                About
-            </a>
-            <a href="page-edit.html">
-                <span class="glyphicon glyphicon-cog pull-right"></span>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="../../widget/templates/widget-list.html">
-                Contact Us
-            </a>
-            <a href="page-edit.html">
-                <span class="glyphicon glyphicon-cog pull-right"></span>
-            </a>
-        </li>
+
     </ul>
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="navbar-text pull-right paddingRight">
-            <a href="../user/profile.html">
+            <a href="#!/user/{{model.userId}}">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </div>
     </div>
 </nav>
-
-</body>
-</html>

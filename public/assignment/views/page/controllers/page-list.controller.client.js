@@ -4,16 +4,17 @@
 (function () {
     angular
         .module('WAM')
-        .controller('websiteListController', websiteListController);
+        .controller('pageListController', pageListController);
 
-    function websiteListController($routeParams,
-                                   websiteService) {
+    function pageListController($routeParams,
+                                   pageService) {
         var model = this;
 
         model.userId = $routeParams['userId'];
+        model.websiteId = $routeParams['websiteId'];
 
         function init() {
-            model.websites = websiteService.findAllWebsitesForUser(model.userId);
+            model.pages = pageService.findPagesByWebsiteId(model.websiteId);
         }
         init();
     }
