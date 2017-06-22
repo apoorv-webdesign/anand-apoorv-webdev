@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <label for="name"> Name</label>
+    <input class="form-control"
+           ng-model="model.widget.name"
+           id="name"
+           value="top heading"
+           placeholder="facebook">
+    <label for="text"> Text</label>
+    <input class="form-control"
+           ng-model="model.widget.text"
+           id="text"
+           value="The Mummy Is Monstrous, Just for All the Wrong Reasons"
+           placeholder="facebook">
+    <label for="size">Size</label>
+    <select ng-model="model.weight.size"
+            id="size"
+            class="form-control">
+        <option value="1"> 1</option>
+        <option value="2"> 2</option>
+        <option value="3"> 3</option>
+        <option value="4"> 4</option>
+        <option value="5"> 5</option>
+        <option value="6"> 6</option>
+    </select>
+    <a ng-click="model.deleteWidget()"  class="btn btn-danger btn-block"> Delete</a>
+</div>

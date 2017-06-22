@@ -1,0 +1,85 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-text pull-left paddingExtra">
+            <a class="navbar-link" href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+                <span class="glyphicon glyphicon-chevron-left pull-left"></span>
+            </a>
+        </div>
+        <div class="navbar-text pull-right paddingExtra">
+            <a class="navbar-link" href=#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+                <span class="glyphicon glyphicon-ok pull-right"></span>
+            </a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand no-left-padding no-left-margin" href="">
+                Choose Widget
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <ul class="list-group">
+        <li class="list-group-item">
+            <a ng-click="model.createWidget('HEADING')">
+                Header
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="">
+                Label
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a ng-click="model.createWidget('HTML')">
+                HTML
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="">
+                Text Input
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="widget-choose.view.client.html">
+                Link
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="">
+                Button
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a ng-click="model.createWidget('IMAGE')">
+                Image
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a ng-click=model.createWidget('YOUTUBE')>
+                YouTube
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="">
+                Data Table
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="">
+                Repeater
+            </a>
+        </li>
+
+    </ul>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="navbar-text pull-right paddingRight">
+            <a href="#!/user/{{model.userId}}">
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,40 @@
+<div ng-controller="loginController as model">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-text pull-left paddingExtra">
+                <a href="../../index.html">
+                    <span class="glyphicon glyphicon-chevron-left pull-left navbar-link"></span>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand no-left-padding no-left-margin" href="login.view.client.html">
+                    Login
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div ng-show="model.message">
+            <h3 class="alert alert-info">{{model.message}}</h3>
+        </div>
+        <input ng-model="username"
+               type="text"
+               class="form-control"
+               placeholder="username"/>
+        <input ng-model="password"
+               type="password"
+               class="form-control"
+               placeholder="password"/>
+        <a ng-click="model.login(username, password)" class="btn btn-primary btn-block">
+            Login
+        </a>
+        <a class="btn btn-success btn-block"
+           href="#!/register">Register</a>
+    </div>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container-fluid">
+            <div class="navbar-text pull-right paddingRight">
+            </div>
+        </div>
+    </nav>
+</div>
