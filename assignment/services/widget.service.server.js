@@ -7,15 +7,19 @@ var multer = require('multer'); // npm install multer --save
 var upload = multer({dest: __dirname + '/../../public/assignment/uploads'});
 
 var widgets = [
-    { "_id": "123", "widgetType": "HEADING", "pageId": "321", "size": 2, "text": "GIZMODO"},
-    { "_id": "234", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
-    { "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
-        "url": "http://lorempixel.com/400/200/"},
-    { "_id": "456", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"},
-    { "_id": "567", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
-    { "_id": "678", "widgetType": "YOUTUBE", "pageId": "321", "width": "100%",
-        "url": "https://youtu.be/AM2Ivdi9c4E" },
-    { "_id": "789", "widgetType": "HTML", "pageId": "789", "text": "<p>Lorem ipsum</p>"}
+    {"_id": "123", "widgetType": "HEADING", "pageId": "321", "size": 2, "text": "GIZMODO"},
+    {"_id": "234", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
+    {
+        "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
+        "url": "http://lorempixel.com/400/200/"
+    },
+    {"_id": "456", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"},
+    {"_id": "567", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
+    {
+        "_id": "678", "widgetType": "YOUTUBE", "pageId": "321", "width": "100%",
+        "url": "https://youtu.be/AM2Ivdi9c4E"
+    },
+    {"_id": "789", "widgetType": "HTML", "pageId": "789", "text": "<p>Lorem ipsum</p>"}
 ];
 
 app.post("/api/upload", upload.single('myFile'), uploadImage);
@@ -52,30 +56,35 @@ function uploadImage(req, res) {
     res.redirect(callbackUrl);
 }
 
-function findWidgetsByPageId(req, res){
+function findWidgetsByPageId(req, res) {
+    var pageId = req.params.pageId;
     var results = [];
-    //console.log( req.params.pageId);
-    for(var v in widgets) {
-        if(widgets[v].pageId === req.params.pageId) {
+
+    for (var v in widgets) {
+        if (widgets[v].pageId === pageId) {
             results.push(widgets[v]);
         }
     }
     res.json(results);
 }
 
-function createWidget(req, res){
+function createWidget(req, res) {
     var body = req.body;
-    createId = widgets[widgets.length -1]._id;
-    newId = parseInt(createId) + 1 + '';
-    var widget = { "_id": newId, "widgetType": body.widgetType, "pageId": body.pageId};
+    var widgetType = body.widgetType.widgetType;
+    var pageId = body.pageId.pageId;
+    var createId = widgets[widgets.length - 1]._id;
+    var widgetid = parseInt(createId) + 1 + '';
+    //console.log(body.widgetType.widgetType);
+    var widget = { "_id": widgetid, "widgetType": widgetType, "pageId": body.pageId};
 
     widgets.push(widget);
-    res.send(newId);
+    res.send(widget);
 }
 
-function findWidgetById(req, res){
-    for(v in widgets){
-        if(widgets[v]._id === req.params.widgetId){
+function findWidgetById(req, res) {
+    var widgetId = req.params.widgetId;
+    for (v in widgets) {
+        if (widgets[v]._id === widgetId) {
             res.json(widgets[v]);
             return;
         }
@@ -83,23 +92,24 @@ function findWidgetById(req, res){
     res.sendStatus(404);
 }
 
-function updateWidget(req, res){
+function updateWidget(req, res) {
     var body = req.body;
-
-    for(v in widgets){
-        if(widgets[v].id === req.params.widgetId){
-            widgets[v] = body.widget;
+    var widgetId = req.params.widgetId;
+    console.log(widgets);
+    for (v in widgets) {
+        if (widgets[v].id === widgetId) {
+            widgets[v] = body;
             res.json(widgets);
         }
     }
     res.sendStatus(404);
 }
 
-function deleteWidget(req, res){
+function deleteWidget(req, res) {
     var widgetId = req.params.widgetId;
 
     for (var v in widgets) {
-        if (widgets[v]._id === widgetId){
+        if (widgets[v]._id === widgetId) {
             var index = widgets.indexOf(widgets[v]);
             widgets.splice(index, 1);
             res.sendStatus(200);

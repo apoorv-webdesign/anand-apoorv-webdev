@@ -25,7 +25,8 @@
             findWidgetById: findWidgetById,
             findWidgetsByPageId: findWidgetsByPageId,
             updateWidget: updateWidget,
-            deleteWidget: deleteWidget
+            deleteWidget: deleteWidget,
+            reOrderWidgets: reOrderWidgets
         };
         return api;
 
@@ -44,7 +45,6 @@
 
             return $http.put(url, widget)
                 .then(function (response) {
-                    console.log(response.data);
                     return response.data;
                 })
         }
@@ -59,8 +59,7 @@
         }
 
         function findWidgetById(widgetId) {
-            //console.log(widgetId);
-            var url = '/api/assignment/page/pageId/'+widgetId;
+            var url = '/api/assignment/widget/'+widgetId;
 
             return $http.get(url)
                 .then(function (response) {
@@ -75,6 +74,10 @@
                 .then(function (response) {
                     return response.data;
                 });
+        }
+
+        function reOrderWidgets(start, final){
+
         }
     }
 })();

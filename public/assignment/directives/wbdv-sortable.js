@@ -2,10 +2,9 @@
  * Created by Apoorv on 06-07-2017.
  */
 
-
 (function () {
     angular
-        .module('wbdvDirectives')
+        .module('WAM')
         .directive('wbdv-sortable', sortableDirectives);
 
     function sortableDirectives() {
@@ -31,4 +30,4 @@
             link: linkfunc
         }
     }
-})()
+})();

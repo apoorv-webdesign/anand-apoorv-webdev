@@ -13,7 +13,7 @@
         model.websiteId = $routeParams['websiteId'];
         model.pageId = $routeParams['pageId'];
         model.widgetId = $routeParams['widgetId'];
-        //model.editWidgetUrl = editWidgetUrl;
+        model.editWidgetUrl = editWidgetUrl;
         model.updateWidget = updateWidget;
         model.deleteWidget = deleteWidget;
 
@@ -23,12 +23,16 @@
         function init(){
             widgetService
                 .findWidgetById(model.widgetId)
-                .then(assignWidget);
+                .then(function(widget){
+                    model.widget = widget;
+                });
         }
         init();
 
-        function assignWidget(widget){
-            model.widget = widget;
+        function editWidgetUrl(widget) {
+            //console.log(widget);
+            var url = 'views/widget/templates/widget-'+widget.widgetType.toLowerCase()+'.edit.view.client.html';
+            return url;
         }
 
         function updateWidget(widget) {

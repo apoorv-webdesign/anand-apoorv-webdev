@@ -40,5 +40,11 @@
         function trustUrl(html) {
             return $sce.trustAsHtml(html);
         }
+
+        function reOrderWidgets(initial,final){
+            console.log(initial + " "+ final);
+            WidgetService
+                .reOrderWidgets(initial,final,model.pageId);
+        }
     }
 })();

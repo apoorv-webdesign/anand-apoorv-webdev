@@ -25,7 +25,7 @@
         function selectPhoto(photo) {
             var url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server;
             url += "/" + photo.id + "_" + photo.secret + "_b.jpg";
-            //{ "_id": "123", "widgetType": "HEADING", "pageId": "321", "size": 2, "text": "GIZMODO"},
+
             var widget= { "_id": model.widgetId, "widgetType": "IMAGE", "pageId": model.pageId, "width": "100%",
                     "url": url};
             widgetService
