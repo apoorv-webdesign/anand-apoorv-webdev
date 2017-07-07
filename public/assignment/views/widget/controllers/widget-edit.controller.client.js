@@ -13,28 +13,38 @@
         model.websiteId = $routeParams['websiteId'];
         model.pageId = $routeParams['pageId'];
         model.widgetId = $routeParams['widgetId'];
-        model.editWidgetUrl = editWidgetUrl;
+        //model.editWidgetUrl = editWidgetUrl;
         model.updateWidget = updateWidget;
         model.deleteWidget = deleteWidget;
 
         //console.log(model.userId);
         //console.log(model.websiteId);
         //console.log(model.widgetId);
-        model.widget = widgetService.findWidgetById(model.widgetId);
+        function init(){
+            widgetService
+                .findWidgetById(model.widgetId)
+                .then(assignWidget);
+        }
+        init();
 
-        function editWidgetUrl(widget) {
-            var url = 'views/widget/templates/widget-'+widget.widgetType.toLowerCase()+'.edit.view.client.html';
-            return url;
+        function assignWidget(widget){
+            model.widget = widget;
         }
 
         function updateWidget(widget) {
-            widgetService.updateWidget(model.widgetId,widget);
-            $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page/'+model.pageId+'/widget');
+            widgetService
+                .updateWidget(model.widgetId,widget)
+                .then(function(){
+                    $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page/'+model.pageId+'/widget');
+                });
         }
 
         function deleteWidget() {
-            widgetService.deleteWidget(model.widgetId);
-            $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page/'+model.pageId+'/widget');
+            widgetService
+                .deleteWidget(model.widgetId)
+                .then(function(){
+                    $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page/'+model.pageId+'/widget');
+                });
         }
     }
 })();

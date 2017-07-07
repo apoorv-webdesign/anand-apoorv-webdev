@@ -15,6 +15,9 @@
 
 
 <div class="container-fluid">
+    <div ng-show="model.error" class="alert alert-info">
+        {{model.error}}
+    </div>
     <div ng-show="model.message" class="alert alert-success">
         {{model.message}}
     </div>
@@ -41,8 +44,10 @@
 
     <a class="btn btn-primary btn-block"
        href="#!/user/{{model.user._id}}/website">Websites</a>
-    <a class="btn btn-danger  btn-block"
+    <a class="btn btn-warning  btn-block"
        href="#!/login">Logout</a>
+    <a class="btn btn-danger  btn-block"
+       ng-click="model.deleteUser(model.user)">Unregister</a>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">

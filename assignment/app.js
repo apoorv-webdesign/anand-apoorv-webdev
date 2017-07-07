@@ -1,0 +1,8 @@
+/**
+ * Created by Apoorv on 30-06-2017.
+ */
+console.log('server started!');
+require('./services/user.service.server');
+require('./services/website.service.server');
+require('./services/widget.service.server');
+require('./services/page.service.server');

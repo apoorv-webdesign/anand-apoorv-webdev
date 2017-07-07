@@ -12,17 +12,19 @@
         model.login = login;
 
         function login(username, password) {
-            var found = userService.findUserByCredentials(username, password);
-            if (found !== null) {
-                $location.url('/user/'+ found._id);//.message = "welcome " + username;
+            //var found = userService.findUserByCredentials(username, password);
+
+            userService
+                .findUserByCredentials(username, password)
+                .then(returnUser, userNotExists);
+
+            function returnUser(found) {
+                //console.log(found);
+                $location.url('/user/' + found._id);//.message = "welcome " + username;
             }
-            else {
-                if(!username || !password){
-                    model.message = "Please enter username and password";
-                }
-                else {
-                    model.message = "sorry, username: " + username + " does not exists"
-                }
+
+            function userNotExists() {
+                model.error = "sorry, username does not exists"
             }
         }
     }

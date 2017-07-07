@@ -4,10 +4,9 @@
 (function () {
     angular
         .module('WAM',['ngRoute'])
-        //.controller('model.loginController', loginController);
-        .config(configuration);
+        //.config(configuration);
 
-    function configuration($routeProvider){
+/*    function configuration($routeProvider){
         $routeProvider
             .when('/', {
                 templateUrl: 'home.html'
@@ -25,5 +24,5 @@
                 controller: 'profileController',
                 controllerAs: 'model'
             })
-    }
+    }*/
 })();

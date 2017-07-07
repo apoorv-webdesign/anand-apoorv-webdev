@@ -6,7 +6,7 @@
         .module('WAM')
         .service('widgetService', widgetService);
 
-    function widgetService() {
+    function widgetService($http) {
 
         var widgets = [
                 { "_id": "123", "widgetType": "HEADING", "pageId": "321", "size": 2, "text": "GIZMODO"},
@@ -29,49 +29,52 @@
         };
         return api;
 
-        function createWidget(pageId, widget) {
-            createId = widgets[widgets.length -1]._id;
-            newId = parseInt(createId) + 1 + '';
-            widget._id = newId;
-            widget.pageId = pageId;
-            widgets.push(widget);
-            return newId;
+        function createWidget(pageId, widgetType) {
+            var url = '/api/assignment/page/'+pageId+'/widget';
+            var widget = {"widgetType": widgetType, "pageId": pageId};
+
+            return $http.post(url, widget)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function updateWidget(widgetId, widget) {
-            for(v in widgets){
-                if(widgets[v].id === widgetId){
-                    widgets[v] = widget;
-                }
-            }
+            var url = '/api/assignment/widget/'+widgetId;
+
+            return $http.put(url, widget)
+                .then(function (response) {
+                    console.log(response.data);
+                    return response.data;
+                })
         }
 
         function deleteWidget(widgetId) {
-            var widget = findWidgetById(widgetId);
-            var index = widgets.indexOf(widget);
-            widgets.splice(index, 1);
+            var url ='/api/assignment/widget/'+widgetId;
+            return $http.delete(url)
+                .then(function (response) {
+                    console.log(response.data);
+                    return response.data;
+                })
         }
 
         function findWidgetById(widgetId) {
             //console.log(widgetId);
-            for(v in widgets){
-                if(widgets[v]._id === widgetId){
-                    return widgets[v];
-                }
-            }
+            var url = '/api/assignment/page/pageId/'+widgetId;
 
+            return $http.get(url)
+                .then(function (response) {
+                    console.log(response.data);
+                    return response.data;
+                });
         }
 
         function findWidgetsByPageId(pageId) {
-            var results = [];
-
-            for(var v in widgets) {
-                if(widgets[v].pageId === pageId) {
-                    results.push(widgets[v]);
-                }
-            }
-
-            return results;
+            var url = '/api/assignment/page/'+pageId+'/widget';
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
     }
 })();

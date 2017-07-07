@@ -17,6 +17,9 @@
         <div ng-show="model.message">
             <h3 class="alert alert-info">{{model.message}}</h3>
         </div>
+        <div ng-show="model.error">
+            <h3 class="alert alert-warning">{{model.error}}</h3>
+        </div>
         <label for="username">Username</label>
         <input ng-model="username"
                type="text"

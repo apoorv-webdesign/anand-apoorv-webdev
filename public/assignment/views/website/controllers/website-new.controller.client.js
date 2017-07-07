@@ -15,13 +15,23 @@
         model.createWebsite = createWebsite;
 
         function init() {
-            model.websites = websiteService.findAllWebsitesForUser(model.userId);
+            websiteService
+                .findAllWebsitesForUser(model.userId)
+                .then(assignWebsites);
         }
         init();
 
+        function assignWebsites(websites){
+            model.websites = websites;
+        }
+
         function createWebsite(website) {
-            //website.developerId = model.userId;
-            websiteService.createWebsite(model.userId, website);
+            websiteService
+                .createWebsite(model.userId, website)
+                .then(reDirect);
+        }
+
+        function reDirect(){
             $location.url('/user/'+model.userId+'/website');
         }
     }

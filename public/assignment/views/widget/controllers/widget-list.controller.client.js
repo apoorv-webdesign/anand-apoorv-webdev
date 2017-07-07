@@ -16,7 +16,14 @@
         model.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
         model.widgetUrl = widgetUrl;
 
-        model.widgets = widgetService.findWidgetsByPageId(model.pageId);
+        function init() {
+            widgetService
+                .findWidgetsByPageId(model.pageId)
+                .then(function (widgets) {
+                    model.widgets = widgets;
+                });
+        }
+        init();
 
         function widgetUrl(widget) {
             var url = 'views/widget/templates/widget-'+widget.widgetType.toLowerCase()+'.view.client.html';
@@ -31,8 +38,6 @@
         }
 
         function trustUrl(html) {
-            //console.log(html);
-            // scrubbing the html
             return $sce.trustAsHtml(html);
         }
     }

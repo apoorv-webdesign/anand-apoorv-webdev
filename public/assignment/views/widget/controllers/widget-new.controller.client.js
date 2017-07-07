@@ -14,14 +14,28 @@
         model.pageId = $routeParams['pageId'];
         model.createWidget = createWidget;
 
-        model.widget = widgetService.findWidgetsByPageId(model.websiteId);
-        //console.log(model.widget);
+        function init() {
+            widgetService
+                .findWidgetsByPageId(model.websiteId)
+                .then(function (widget) {
+                    console.log('test');
+                    model.widget =widget;
+                });
+        }
+        init();
+
         function createWidget(widgetType){
             var newWidget = {
                 widgetType: widgetType
             }
-            var id = widgetService.createWidget(model.pageId, newWidget);
-            $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page/'+model.pageId+'/widget/'+id);
+            //var id = widgetService.createWidget(model.pageId, newWidget);
+            widgetService
+                .createWidget(model.pageId, newWidget)
+                .then(reDirect);
+
+            function reDirect(id) {
+                $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget/' + id);
+            }
         }
     }
 })();

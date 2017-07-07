@@ -17,18 +17,37 @@
         model.updateWebsite = updateWebsite;
 
         function init() {
-            model.websites = websiteService.findAllWebsitesForUser(model.userId);
-            model.website = websiteService.findWebsiteById(model.websiteId);
+            websiteService
+                .findAllWebsitesForUser(model.userId)
+                .then(assignWebsites);
+
+            websiteService
+                .findWebsiteById(model.websiteId)
+                .then(assignWebsite);
         }
         init();
 
+        function assignWebsite(website){
+            model.website = website;
+        }
+
+        function assignWebsites(websites){
+            model.websites = websites;
+        }
+
         function deleteWebsite(websiteId) {
-            websiteService.deleteWebsite(websiteId);
-            $location.url('/user/'+model.userId+'/website');
+            websiteService
+                .deleteWebsite(websiteId)
+                .then(updateUrl);
         }
 
         function updateWebsite(website) {
-            websiteService.updateWebsite(website._id,website);
+            websiteService
+                .updateWebsite(website._id,website)
+                .then(updateUrl);
+        }
+
+        function updateUrl(){
             $location.url('/user/'+model.userId+'/website');
         }
     }
