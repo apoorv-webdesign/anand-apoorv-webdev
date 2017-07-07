@@ -3,11 +3,25 @@
         .module('WAM')
         .controller('widgetFlickrSearchController', widgetFlickrSearchController);
 
-    function widgetFlickrSearchController(flickrService, widgetService, $location) {
+    function widgetFlickrSearchController(flickrService, widgetService, $location, $routeParams) {
         var model = this;
 
         model.searchPhotos = searchPhotos;
         model.selectPhoto = selectPhoto;
+
+        function init(){
+            model.userId = $routeParams['userId'];
+            model.websiteId = $routeParams['websiteId'];
+            model.pageId = $routeParams['pageId'];
+            model.widgetId = $routeParams['widgetId'];
+
+            widgetService
+                .findWidgetById(model.widgetId)
+                .then(function(widget){
+                    model.widget = widget;
+                });
+        }
+        init();
 
         function searchPhotos(searchTerm){
             //console.log(searchTerm);
@@ -35,7 +49,7 @@
         }
 
         function addUrl(){
-            $location.url('/widget/' + model.widgetId);
+            $location.url('user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget/' + model.widgetId);
         }
 
     }

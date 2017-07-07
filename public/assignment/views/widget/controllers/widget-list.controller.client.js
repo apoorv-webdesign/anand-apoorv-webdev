@@ -43,7 +43,6 @@
         }
 
         function reOrderWidgets(initial,final){
-            // console.log(initial + " "+ final);
             widgetService
                  .reOrderWidgets(initial,final,model.pageId);
         }
