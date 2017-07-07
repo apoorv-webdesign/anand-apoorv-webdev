@@ -15,6 +15,7 @@
         model.trustUrl = trustUrl;
         model.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
         model.widgetUrl = widgetUrl;
+        model.reOrderWidgets = reOrderWidgets;
 
         function init() {
             widgetService
@@ -42,9 +43,9 @@
         }
 
         function reOrderWidgets(initial,final){
-            console.log(initial + " "+ final);
-            WidgetService
-                .reOrderWidgets(initial,final,model.pageId);
+            // console.log(initial + " "+ final);
+            widgetService
+                 .reOrderWidgets(initial,final,model.pageId);
         }
     }
 })();

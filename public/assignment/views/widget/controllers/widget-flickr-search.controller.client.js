@@ -23,6 +23,7 @@
         }
 
         function selectPhoto(photo) {
+            console.log('test');
             var url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server;
             url += "/" + photo.id + "_" + photo.secret + "_b.jpg";
 

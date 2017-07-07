@@ -2,32 +2,29 @@
  * Created by Apoorv on 06-07-2017.
  */
 
-(function () {
+(function(){
     angular
         .module('WAM')
-        .directive('wbdv-sortable', sortableDirectives);
+        .directive('wbdvSortable', wbdvSortable)
 
-    function sortableDirectives() {
-        function linkfunc(scope, element, attributes) {
-            var start = -1;
-            var final = -1;
-            element.sortable({
+    function wbdvSortable(){
+        function linkFunction(scope, element){
+            $(element).sortable({
                 axis: 'y',
-                cursor: 'move',
-                start: function (event, ui) {
-                    start = ui.item.index();
+                start: function(event, ui){
+                    startPos = ui.item.index();
                 },
-                stop: function (event, ui) {
-                    final = ui.item.index();
-                    if (start != final) {
-                        scope.model.reOrderWidgets(start, final);
+                stop: function(event, ui){
+                    endPos = ui.item.index();
+                    if (startPos != endPos) {
+                        scope.model.reOrderWidgets(startPos, endPos);
                     }
                 }
             });
         }
 
         return {
-            link: linkfunc
+            link: linkFunction
         }
     }
 })();

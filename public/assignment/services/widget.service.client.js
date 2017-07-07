@@ -63,7 +63,6 @@
 
             return $http.get(url)
                 .then(function (response) {
-                    console.log(response.data);
                     return response.data;
                 });
         }
@@ -76,8 +75,10 @@
                 });
         }
 
-        function reOrderWidgets(start, final){
-
+        function reOrderWidgets(start, final, pageId){
+            //'/api/assignment/page/:pageId/widget'
+            var url ='/api/assignment/page/'+pageId+'/widget?initial='+start+'&final='+final;
+            return $http.put(url);
         }
     }
 })();

@@ -31,8 +31,10 @@
 
         function editWidgetUrl(widget) {
             //console.log(widget);
-            var url = 'views/widget/templates/widget-'+widget.widgetType.toLowerCase()+'.edit.view.client.html';
-            return url;
+            if(typeof widget !== 'undefined') {
+                var url = 'views/widget/templates/widget-' + widget.widgetType.toLowerCase() + '.edit.view.client.html';
+                return url;
+            }
         }
 
         function updateWidget(widget) {

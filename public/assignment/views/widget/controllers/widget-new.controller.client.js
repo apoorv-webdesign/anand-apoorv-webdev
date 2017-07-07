@@ -13,6 +13,7 @@
         model.websiteId = $routeParams['websiteId'];
         model.pageId = $routeParams['pageId'];
         model.createWidget = createWidget;
+        ///model.widget = widget;
 
         function init() {
             widgetService
@@ -33,7 +34,7 @@
                 .then(reDirect);
 
             function reDirect(widget) {
-                model.widget = widget;
+                //model.widget = widget;
                 $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget/'+widget._id);
             }
         }

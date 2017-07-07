@@ -29,6 +29,7 @@ app.post('/api/assignment/page/:pageId+/widget', createWidget);
 app.get('/api/assignment/widget/:widgetId', findWidgetById);
 app.put('/api/assignment/widget/:widgetId', updateWidget);
 app.delete('/api/assignment/widget/:widgetId', deleteWidget);
+app.put('/api/assignment/page/:pageId/widget', reOrderWidgets)
 
 function uploadImage(req, res) {
 
@@ -46,14 +47,26 @@ function uploadImage(req, res) {
     var destination = myFile.destination;  // folder where file is saved to
     var size = myFile.size;
     var mimetype = myFile.mimetype;
+    var createId = widgets[widgets.length - 1]._id;
+    var widgetid = parseInt(createId) + 1 + '';
+    var url = '/public/assignment/uploads' + filename;
 
-    widget = {};//getWidgetById(widgetId);
-    widget.url = '/public/assignment/uploads' + filename;
+    widget = getWidget(widgetId);
+    widget.width = '100%';
+    widget.url = req.protocol + '://' + req.get('host') + "/uploads/" + filename;
 
-    var callbackUrl = "/assignment/index.html#!/user/" + userId + "/website/" + websiteId + "page" + pageId + "widget" + widgetId;
+    var callbackUrl = "/assignment/index.html#!/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId;
     //http://localhost:3000/assignment/index.html#!/user/456/website/123/page/544/widget/790
 
     res.redirect(callbackUrl);
+}
+
+function getWidget(widgetId){
+    for(var w in widgets){
+        if(widgets[w]._id === widgetId){
+            return widgets[w];
+        }
+    }
 }
 
 function findWidgetsByPageId(req, res) {
@@ -95,11 +108,13 @@ function findWidgetById(req, res) {
 function updateWidget(req, res) {
     var body = req.body;
     var widgetId = req.params.widgetId;
-    console.log(widgets);
+    //console.log(widgets);
     for (v in widgets) {
-        if (widgets[v].id === widgetId) {
+        if (widgets[v]._id === widgetId) {
+            console.log(body);
             widgets[v] = body;
             res.json(widgets);
+            return;
         }
     }
     res.sendStatus(404);
@@ -117,4 +132,35 @@ function deleteWidget(req, res) {
         }
     }
     res.sendStatus(404);
+}
+
+function reOrderWidgets(req, res){
+    var start = req.query.start;
+    var end = req.query.final;
+    var pageId = req.params['pageId'];
+    var initial = 0;
+    var final = 0;
+    for(var i in widgets){
+        if(widgets[i].pageId === pageId){
+            if(parseInt(start) === initial){
+                var temp = widgets[i];
+                widgets.splice(i,1);
+                break;
+            }
+            initial += 1;
+        }
+    }
+    for(var j in widgets){
+        if(widgets[j].pageId === pageId){
+            if(parseInt(end) === final){
+                widgets.splice(j, 0, temp);
+                break;
+            }
+            final += 1;
+        }
+        if(parseInt(j)+1 === widgets.length){
+            widgets.push(temp);
+        }
+    }
+    res.json(widgets);
 }
