@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Exo:700i');
+
+body {
+    background-color: #f8f8f8;
+    padding-top: 70px;
+    padding-bottom: 50px;
+    padding: 20px;
+}
+.wrap-login{
+    padding:20px;
+    background-color: #fff;
+    border: solid 1px #d0d0d0;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(138,149,219,0.37);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(138,149,219,0.37);
+    box-shadow: 10px 10px 5px 0px rgba(138,149,219,0.37);
+}
+.login-heading{
+    margin-bottom: 30px;
+}
+.logo{
+    padding: 10px;
+    font-family: 'Exo', sans-serif;
+    color: #8a95db;
+}
+.forgot-password{
+    padding-top: 20px;
+}
