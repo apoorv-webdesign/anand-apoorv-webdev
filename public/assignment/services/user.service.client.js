@@ -28,10 +28,12 @@
         }
 
         function deleteUser(userId) {
+            console.log(userId);
             var url = '/api/assignment/user/' + userId;
             return $http
                 .delete(url)
                 .then(function (response) {
+                    console.log(response);
                     return response;
                 });
         }

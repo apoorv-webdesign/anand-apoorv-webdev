@@ -39,7 +39,7 @@
 
         function deleteUser(user) {
             userService
-                .deleteUser(user._id)
+                .deleteUser(userId)
                 .then(userDeleted, userNotDeleted);
         }
 
