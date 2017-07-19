@@ -6,7 +6,7 @@
 </div>
 <input ng-if="!widget.formatted && (!widget.rows || widget.rows==1)"
        placeholder="{{widget.placeholder}}" class="form-control"
-       ng-model="widget.text"/>
+       ng-model="model.widget.text"/>
 <textarea ng-if="!widget.formatted && (widget.rows > 1)"
           rows="{{widget.rows}}"
           placeholder="{{widget.placeholder}}"
