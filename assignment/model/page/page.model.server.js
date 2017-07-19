@@ -33,7 +33,7 @@ function createPage(websiteId, page){
 
 function findPageById(pageId){
     return pageModel
-        .find({_id: pageid});
+        .findOne({_id: pageId});
 }
 
 function updatePage(pageId, newPage){
