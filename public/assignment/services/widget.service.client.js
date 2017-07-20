@@ -49,8 +49,8 @@
                 })
         }
 
-        function deleteWidget(widgetId) {
-            var url ='/api/assignment/widget/'+widgetId;
+        function deleteWidget(widgetId, pageId) {
+            var url ='/api/assignment/page/'+pageId+'/widget/'+widgetId;
             return $http.delete(url)
                 .then(function (response) {
                     return response.data;

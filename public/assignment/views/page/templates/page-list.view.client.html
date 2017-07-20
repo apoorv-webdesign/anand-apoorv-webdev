@@ -29,7 +29,6 @@
                     Created
                 </div>
                 <div class="col-md-3 hidden-sm hidden-xs">
-                    Accessed
                 </div>
                 <div class="col-xs-1">
                 </div>
@@ -43,10 +42,9 @@
                     </a>
                 </div>
                 <div class="col-lg-3 visible-lg">
-                    1/1/1970
+                    {{page.dateCreated | date:'medium'}}
                 </div>
                 <div class="col-md-3 hidden-sm hidden-xs">
-                    1/1/1970
                 </div>
                 <div class="col-xs-1">
                     <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}">

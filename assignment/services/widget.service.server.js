@@ -13,7 +13,7 @@ app.get('/api/assignment/page/:pageId/widget', findWidgetsByPageId);
 app.post('/api/assignment/page/:pageId+/widget', createWidget);
 app.get('/api/assignment/widget/:widgetId', findWidgetById);
 app.put('/api/assignment/widget/:widgetId', updateWidget);
-app.delete('/api/assignment/widget/:widgetId', deleteWidget);
+app.delete('/api/assignment/page/:pageId/widget/:widgetId', deleteWidget);
 app.put('/api/assignment/page/:pageId/widget', reOrderWidgets)
 
 function uploadImage(req, res) {
@@ -36,13 +36,12 @@ function uploadImage(req, res) {
     widgetModel
         .findWidgetById(widgetId)
         .then(function(widget){
-            console.log('here1');
+
             widget.width = width
             widget.url = req.protocol + '://' + req.get('host') + localUrl;
             widgetModel
                 .updateWidget(widget._id, widget)
                 .then(function(status){
-                    console.log('2');
                     res.redirect(callbackUrl);
                 })
         });
@@ -61,7 +60,6 @@ function findWidgetsByPageId(req, res) {
 
 function createWidget(req, res) {
     var widget = req.body;
-    console.log(widget);
     var pageId = widget.pageId;
 
     widgetModel
@@ -94,16 +92,21 @@ function updateWidget(req, res) {
 
 function deleteWidget(req, res) {
     var widgetId = req.params.widgetId;
+    var pageId = req.params.pageId;
+    console.log(pageId);
 
     widgetModel
-        .deleteWidget(widgetId)
+        .deleteWidget(pageId, widgetId)
         .then(function(status){
+            console.log(status);
             res.send(status);
+        }, function(err){
+            console.log(err);
         })
 }
 
 function reOrderWidgets(req, res) {
-    start = req.query.start;
+    start = req.query.initial;
     end = req.query.final;
     pageId = req.params.pageId;
 
