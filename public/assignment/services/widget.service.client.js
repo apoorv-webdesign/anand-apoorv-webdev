@@ -53,7 +53,6 @@
             var url ='/api/assignment/widget/'+widgetId;
             return $http.delete(url)
                 .then(function (response) {
-                    console.log(response.data);
                     return response.data;
                 })
         }

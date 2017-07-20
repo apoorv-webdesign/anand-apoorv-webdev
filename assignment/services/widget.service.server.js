@@ -103,68 +103,13 @@ function deleteWidget(req, res) {
 }
 
 function reOrderWidgets(req, res) {
-    // start = req.query.start;
-    // end = req.query.final;
+    start = req.query.start;
+    end = req.query.final;
     pageId = req.params.pageId;
-    // first = 0;
-    // last = 0;
-    // var temp = {};
 
     widgetModel
-        .findAllWidgetsForPage(pageId)
-        .then(function(widgets){
-            start = req.query.start;
-            end = req.query.final;
-            first = 0;
-            last = 0;
-            var temp = {};
-            for (var i in widgets) {
-                if (widgets[i].pageId === pageId) {
-                    if (parseInt(start) === first) {
-                        temp = widgets[i];
-                        widgets.splice(i, 1);
-                        break;
-                    }
-                    first++;
-                }
-            }
-            for (var j in widgets) {
-                if (widgets[j].pageId === pageId) {
-                    if (parseInt(end) === last) {
-                        widgets.splice(j, 0, temp);
-                        res.json(widgets);
-                        return;
-                    }
-                    last++;
-                }
-                if (j + 1 === widgets.length) {
-                    widgets.push(temp);
-                }
-            }
+        .reorderWidget(pageId, start, end)
+        .then(function (status) {
+            res.send(status);
         })
-
-    // for (var i in widgets) {
-    //     if (widgets[i].pageId === pageId) {
-    //         if (parseInt(start) === first) {
-    //             temp = widgets[i];
-    //             widgets.splice(i, 1);
-    //             break;
-    //         }
-    //         first++;
-    //     }
-    // }
-    // for (var j in widgets) {
-    //     if (widgets[j].pageId === pageId) {
-    //         if (parseInt(end) === last) {
-    //             widgets.splice(j, 0, temp);
-    //             res.json(widgets);
-    //             return;
-    //         }
-    //         last++;
-    //     }
-    //     if (j + 1 === widgets.length) {
-    //         widgets.push(temp);
-    //     }
-    // }
-    res.json(widgets);
 }
