@@ -12,19 +12,29 @@
         model.login = login;
 
         function login(username, password) {
-            //var found = userService.findUserByCredentials(username, password);
-
+            model.error = false;
+            model.unameerror = false;
+            model.passerror = false;
+            if(username === null || username === '' || typeof username === 'undefined'){
+                model.unameerror = "username is required";
+                return;
+            }
+            if(password === null || password === '' || typeof password === 'undefined'){
+                model.passerror = "password is required";
+                return;
+            }
             userService
-                .findUserByCredentials(username, password)
+                .login(username, password)
                 .then(returnUser, userNotExists);
 
             function returnUser(found) {
-                //console.log(found);
-                $location.url('/user/' + found._id);//.message = "welcome " + username;
+                if(found != null) {
+                    $location.url('/profile');
+                }
             }
 
             function userNotExists() {
-                model.error = "sorry, username does not exists"
+                model.error = "sorry, username/password does not exists"
             }
         }
     }

@@ -7,7 +7,7 @@ mongoose.connect('mongodb://localhost/test',{
 });
 mongoose.Promise = require('q').Promise;
 
-console.log('server started!');
+console.log('server at assignment started!');
 require('./services/user.service.server');
 require('./services/website.service.server');
 require('./services/widget.service.server');

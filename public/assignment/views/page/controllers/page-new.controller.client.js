@@ -10,7 +10,7 @@
                                   $location,
                                   pageService) {
         var model = this;
-
+        model.pageerror = false;
         model.userId = $routeParams['userId'];
         model.websiteId = $routeParams['websiteId'];
         model.createPage = createPage;
@@ -26,6 +26,10 @@
         init();
 
         function createPage(page) {
+            if (page === null || page === '' || typeof page === 'undefined') {
+                model.pageerror = 'page name is required';
+                return;
+            }
             pageService
                 .createPage(model.websiteId, page)
                 .then(reDirect);

@@ -62,6 +62,9 @@
                type="text"
                value="Blogger"
                placeholder="Website Name">
+        <span ng-show="model.websiteediterror">
+            <h3 class="alert alert-danger">{{model.websiteediterror}}</h3>
+        </span>
         <label for="description">Website description</label>
         <textarea class="form-control"
                   ng-model="model.website.description"

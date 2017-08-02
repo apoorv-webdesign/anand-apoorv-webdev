@@ -6,19 +6,26 @@
         .module('WAM')
         .controller('profileController', profileController);
 
-    function profileController($location, $routeParams, userService) {
+    function profileController(currentUser, $location, $routeParams, userService) {
         var model = this;
-        var userId = $routeParams['userId'];
+        //  var userId = currentUser._id;//$routeParams['userId'];
+        model.user = currentUser;
         model.update = update;
-        model.deleteUser = deleteUser;
+        model.unRegister = unRegister;
+        model.logout = logout;
 
-        userService
-            .findUserById(userId)
-            .then(renderUser,userError);
+        // userService
+        //     .findUserById(userId)
+        //     .then(renderUser,userError);
 
-        function renderUser(user){
-            model.user = user;
-        }
+        // function init(){
+        //     renderUser(currentUser);
+        // }
+        // init();
+
+        // function renderUser(user){
+        //     model.user = user;
+        // }
 
         function userError(user){
             $location.url('/login');
@@ -27,7 +34,7 @@
 
         function update(user) {
             userService
-                .updateUser(userId, user)
+                .updateUser(user._id, user)
                 .then(profileUpdated);
         }
 
@@ -37,9 +44,9 @@
             //$location.url('/user/'+userId)
         }
 
-        function deleteUser(user) {
+        function unRegister(user) {
             userService
-                .deleteUser(userId)
+                .unRegister()
                 .then(userDeleted, userNotDeleted);
         }
 
@@ -49,6 +56,14 @@
 
         function userNotDeleted(){
             model.error = "User not deleted";
+        }
+
+        function logout(){
+            userService
+                .logout()
+                .then(function(){
+                    $location.url('/login');
+                });
         }
     }
 })();

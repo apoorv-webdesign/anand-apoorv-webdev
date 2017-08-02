@@ -14,11 +14,19 @@ userModel.findUserByUsername = findUserByUsername;
 userModel.findUserByCredentials = findUserByCredentials;
 userModel.updateUser = updateUser;
 userModel.deleteUser = deleteUser;
+userModel.findUserByGoogleId = findUserByGoogleId;
 
 module.exports = userModel;
 
+
+function findUserByGoogleId(googleId){
+    return userModel
+        .findOne({'google.id': googleId});
+}
+
 function createUser(user){
     console.log(user);
+    user.roles = ['USER'];
     return userModel
         .create(user);
 }

@@ -8,7 +8,7 @@
 
     function widgetEditController($sce, $routeParams, widgetService, $location) {
         var model = this;
-
+        model.widgeterror = false;
         model.userId = $routeParams['userId'];
         model.websiteId = $routeParams['websiteId'];
         model.pageId = $routeParams['pageId'];
@@ -38,6 +38,10 @@
         }
 
         function updateWidget(widget) {
+            if (widget.widgetType !='TEXT' &&(widget.name === null || widget.name === '' || typeof widget.name === 'undefined') ) {
+                model.widgeterror = 'widget name is required';
+                return;
+            }
             widgetService
                 .updateWidget(model.widgetId,widget)
                 .then(function(){

@@ -10,7 +10,7 @@
                                   $location,
                                   websiteService) {
         var model = this;
-
+        model.websiteerror = false;
         model.userId = $routeParams['userId'];
         model.createWebsite = createWebsite;
 
@@ -26,6 +26,10 @@
         }
 
         function createWebsite(website) {
+            if (website === null || website === '' || typeof website === 'undefined') {
+                model.websiteerror = 'website name is required';
+                return;
+            }
             websiteService
                 .createWebsite(model.userId, website)
                 .then(reDirect);

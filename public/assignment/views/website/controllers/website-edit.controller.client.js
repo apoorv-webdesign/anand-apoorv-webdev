@@ -10,7 +10,7 @@
                                    $location,
                                    websiteService) {
         var model = this;
-
+        model.websiteediterror = false;
         model.userId = $routeParams['userId'];
         model.websiteId = $routeParams['websiteId'];
         model.deleteWebsite = deleteWebsite;
@@ -42,6 +42,11 @@
         }
 
         function updateWebsite(website) {
+            console.log('update');
+            if (website.name === null || website.name === '' || typeof website.name === 'undefined') {
+                model.websiteediterror = 'website name is required';
+                return;
+            }
             websiteService
                 .updateWebsite(website._id,website)
                 .then(updateUrl);

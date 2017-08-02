@@ -10,7 +10,7 @@
                                    $location,
                                    pageService) {
         var model = this;
-
+        model.pageediterror = false;
         model.userId = $routeParams['userId'];
         model.websiteId = $routeParams['websiteId'];
         model.pageId = $routeParams['pageId'];
@@ -33,11 +33,14 @@
         }
 
         function assignPage(page){
-            console.log(page);
             model.page = page;
         }
 
         function updatePage(page) {
+            if (page.name === null || page.name === '' || typeof page.name === 'undefined') {
+                model.pageediterror = 'page name is required';
+                return;
+            }
             page._id = model.pageId;
             page.websiteId = model.websiteId;
 

@@ -60,6 +60,9 @@
                ng-model="website.name"
                id="name"
                placeholder="Website Name">
+        <span ng-show="model.websiteerror">
+            <h3 class="alert alert-danger">{{model.websiteerror}}</h3>
+        </span>
         <label for="description">Website description</label>
         <textarea class="form-control"
                   ng-model="website.description"

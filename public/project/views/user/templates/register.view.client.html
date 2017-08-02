@@ -1,0 +1,44 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand no-left-padding no-left-margin" href="#!/register">
+                Register
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div ng-show="model.message" class="alert alert-success">
+        {{model.message}}
+    </div>
+    <div ng-show="model.error" class="alert alert-warning">
+        {{model.error}}
+    </div>
+    <input type="text"
+           id="username"
+           ng-model="username"
+           class="form-control"
+           placeholder="username"/>
+    <input type="password"
+           id="password"
+           ng-model="password"
+           class="form-control"
+           placeholder="password"/>
+    <input type="password"
+           ng-model="verifyPassword"
+           id="verifyPassword"
+           class="form-control"
+           placeholder="verify password"/>
+    <a class="btn btn-primary btn-block"
+       ng-click="model.register(username,password,verifyPassword)">
+        Register
+    </a>
+    <a class="btn btn-danger  btn-block"
+       href="#!/login">Cancel</a>
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="navbar-text pull-right paddingRight">
+        </div>
+    </div>
+</nav>

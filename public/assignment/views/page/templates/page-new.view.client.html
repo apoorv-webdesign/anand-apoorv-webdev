@@ -63,6 +63,9 @@
                id="name"
                type="text"
                placeholder="Page Name">
+                <span ng-show="model.pageerror">
+                    <h3 class="alert alert-danger">{{model.pageerror}}</h3>
+                </span>
         <label for="title">Title</label>
         <input class="form-control"
                ng-model="page.description"

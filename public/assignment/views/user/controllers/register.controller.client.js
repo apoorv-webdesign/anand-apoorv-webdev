@@ -13,21 +13,31 @@
         model.register = register;
 
         function register(username, password, password2) {
-            //console.log(username, password, password2);
+            model.error = false;
+            model.unameerror = false;
+            model.passerror = false;
+            model.vpasserror = false;
             if (username === null || username === '' || typeof username === 'undefined') {
-                model.error = 'username is required';
+                model.unameerror = 'username is required';
                 return;
             }
-
+            if (password === null || password === '' || typeof password === 'undefined') {
+                model.passerror = 'password is required';
+                return;
+            }
+            if (password2 === null || password2 === '' || typeof password2 === 'undefined') {
+                model.vpasserror = 'verify password is required';
+                return;
+            }
             if (password !== password2 || password === null || typeof password === 'undefined') {
-                model.error = "passwords must match";
+                model.error = "password and verify password do not match";
                 return;
             }
 
             userService
                 .findUserByUsername(username)
-                .then(userExists, userDoesNotExists)
-                .then(createNewUser);
+                .then(userExists, userDoesNotExists);
+                //.then(createNewUser);
 
             function userExists() {
                 model.error = "sorry, that username is taken";
@@ -39,11 +49,14 @@
                     password: password
                 };
                 return userService
-                    .createUser(newUser)
+                    .register(newUser)
+                    .then(function(status){
+                        $location.url('/profile');
+                    })
             }
 
             function createNewUser(user){
-                $location.url('/user/' + user._id);
+                $location.url('/profile');
             };
         }
     }

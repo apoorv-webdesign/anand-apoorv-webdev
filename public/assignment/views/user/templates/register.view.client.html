@@ -8,9 +8,6 @@
     </div>
 </nav>
 <div class="container">
-    <div ng-show="model.message" class="alert alert-success">
-        {{model.message}}
-    </div>
     <div ng-show="model.error" class="alert alert-warning">
         {{model.error}}
     </div>
@@ -19,16 +16,25 @@
            ng-model="username"
            class="form-control"
            placeholder="username"/>
+    <span ng-show="model.unameerror">
+            <h3 class="alert alert-danger">{{model.unameerror}}</h3>
+    </span>
     <input type="password"
            id="password"
            ng-model="password"
            class="form-control"
            placeholder="password"/>
+    <span ng-show="model.passerror">
+            <h3 class="alert alert-danger">{{model.passerror}}</h3>
+    </span>
     <input type="password"
            ng-model="verifyPassword"
            id="verifyPassword"
            class="form-control"
            placeholder="verify password"/>
+    <span ng-show="model.vpasserror">
+            <h3 class="alert alert-danger">{{model.vpasserror}}</h3>
+    </span>
     <a class="btn btn-primary btn-block"
        ng-click="model.register(username,password,verifyPassword)">
         Register

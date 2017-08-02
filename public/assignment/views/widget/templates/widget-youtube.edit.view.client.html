@@ -4,6 +4,9 @@
            ng-model="model.widget.name"
            id="name"
            placeholder="youtude video name">
+    <span ng-show="model.widgeterror">
+                    <h3 class="alert alert-danger">{{model.widgeterror}}</h3>
+    </span>
     <label for="text"> Text</label>
     <input class="form-control"
            ng-model="model.widget.text"
