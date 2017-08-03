@@ -63,7 +63,7 @@ function googleStrategy(token, refreshToken, profile, done) {
 app.get('/auth/google/callback',
     passport.authenticate('google', {
         successRedirect: '/assignment/index.html#!/profile',
-        failureRedirect: 'http://127.0.0.1:3000/assignment/index.html#!/login'
+        failureRedirect: '/assignment/index.html#!/login'
     }));
 
 passport.use(new LocalStrategy(localStrategy));
