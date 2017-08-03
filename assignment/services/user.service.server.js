@@ -9,15 +9,15 @@ var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require("bcrypt-nodejs");
 
 
-GOOGLE_CLIENT_ID = '596822831284-hmpp7da9418caabbb8ro0suimnq418ff.apps.googleusercontent.com';
-GOOGLE_CLIENT_SECRET = '2vaWpa0YGGrsTaTIF2hmBdJp';
-GOOGLE_CALLBACK_URL = 'http://127.0.0.1:3000';
+// GOOGLE_CLIENT_ID = '596822831284-jgt2rd2n569t9h90sbqkod5sj7k6iv50.apps.googleusercontent.com';
+// GOOGLE_CLIENT_SECRET = 'JEyyXbAR6SmMfqFbcn59OWse';
+// GOOGLE_CALLBACK_URL = 'http://127.0.0.1:3000/auth/google/callback';
 
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var googleConfig = {
-    clientID     : GOOGLE_CLIENT_ID,
-    clientSecret : GOOGLE_CLIENT_SECRET,
-    callbackURL  : GOOGLE_CALLBACK_URL
+    clientID     : process.env.GOOGLE_CLIENT_ID,
+    clientSecret : process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL  : process.env.GOOGLE_CALLBACK_URL
 };
 
 passport.use(new GoogleStrategy(googleConfig, googleStrategy));
@@ -28,7 +28,6 @@ function googleStrategy(token, refreshToken, profile, done) {
         .findUserByGoogleId(profile.id)
         .then(
             function(user) {
-                cconsole.log(user);
                 if(user) {
                     return done(null, user);
                 } else {
@@ -63,8 +62,8 @@ function googleStrategy(token, refreshToken, profile, done) {
 
 app.get('/auth/google/callback',
     passport.authenticate('google', {
-        successRedirect: '/#/profile',
-        failureRedirect: '/#/login'
+        successRedirect: '/assignment/index.html#!/profile',
+        failureRedirect: 'http://127.0.0.1:3000/assignment/index.html#!/login'
     }));
 
 passport.use(new LocalStrategy(localStrategy));
