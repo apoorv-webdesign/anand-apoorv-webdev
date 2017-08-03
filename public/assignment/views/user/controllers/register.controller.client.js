@@ -35,7 +35,7 @@
             }
 
             userService
-                .findUserByUsername(username)
+                .registrationCheck(username)
                 .then(userExists, userDoesNotExists);
                 //.then(createNewUser);
 

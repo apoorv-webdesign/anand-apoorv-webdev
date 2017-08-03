@@ -25,7 +25,6 @@ function findUserByGoogleId(googleId){
 }
 
 function createUser(user){
-    console.log(user);
     user.roles = ['USER'];
     return userModel
         .create(user);

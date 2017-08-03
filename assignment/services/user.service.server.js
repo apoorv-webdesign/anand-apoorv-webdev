@@ -8,11 +8,6 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require("bcrypt-nodejs");
 
-
-// GOOGLE_CLIENT_ID = '596822831284-jgt2rd2n569t9h90sbqkod5sj7k6iv50.apps.googleusercontent.com';
-// GOOGLE_CLIENT_SECRET = 'JEyyXbAR6SmMfqFbcn59OWse';
-// GOOGLE_CALLBACK_URL = 'http://127.0.0.1:3000/auth/google/callback';
-
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var googleConfig = {
     clientID     : process.env.GOOGLE_CLIENT_ID,
@@ -72,6 +67,7 @@ passport.deserializeUser(deserializeUser);
 
 app.get('/api/assignment/user/:userId', findUserById);
 app.post('/api/assignment/user/', isAdmin, findAllUsers);
+app.post('/api/assignment/user/reg/', registrationCheck);
 app.post('/api/assignment/createUser/', createUser);
 app.put('/api/assignment/user/:userId', updateUser);
 app.delete('/api/assignment/user/:userId',isAdmin, deleteUser);
@@ -261,4 +257,21 @@ function unRegister(req ,res){
             req.logout();
             res.sendStatus(200);
         });
+}
+
+function registrationCheck(req, res) {
+    var credential = req.body;
+    var username = credential.username;
+    if (username) {
+        userModel
+            .findUserByUsername(username)
+            .then(function (user) {
+                if (user) {
+                    res.json(user);
+                }
+                else {
+                    res.sendStatus(404);
+                }
+            });
+    }
 }

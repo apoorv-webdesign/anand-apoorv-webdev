@@ -34,7 +34,7 @@
             }
 
             function userNotExists() {
-                model.error = "sorry, username/password does not exists"
+                model.error = "sorry, this username password combination does not exists"
             }
         }
     }

@@ -21,7 +21,8 @@
             updateUser: updateUser,
             deleteUser: deleteUser,
             logout: logout,
-            unRegister: unRegister
+            unRegister: unRegister,
+            registrationCheck: registrationCheck
         };
         return api;
 
@@ -90,6 +91,17 @@
 
         function findUserByUsername(username) {
             var url = '/api/assignment/user/';
+            var credential = {username: username};
+
+            return $http
+                .post(url, credential)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function registrationCheck(username){
+            var url = '/api/assignment/user/reg/';
             var credential = {username: username};
 
             return $http
