@@ -11,6 +11,7 @@ var userSchema = mongoose.Schema({
     roles: [{type: String, default: 'USER', enum:['USER', 'ADMIN', 'CLIENT']}],
     email: String,
     phone: String,
+    projectType: String,
     dateCreated: {type: Date, default: Date.now}
 },{collection: "projectuser"});
 

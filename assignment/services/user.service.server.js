@@ -18,7 +18,7 @@ var googleConfig = {
 passport.use(new GoogleStrategy(googleConfig, googleStrategy));
 
 function googleStrategy(token, refreshToken, profile, done) {
-    console.log(profile);
+    //console.log(profile);
     userModel
         .findUserByGoogleId(profile.id)
         .then(
@@ -61,9 +61,9 @@ app.get('/auth/google/callback',
         failureRedirect: '/assignment/index.html#!/login'
     }));
 
-passport.use(new LocalStrategy(localStrategy));
-passport.serializeUser(serializeUser);
-passport.deserializeUser(deserializeUser);
+passport.use('assignmentLocal',new LocalStrategy(localStrategy));
+//passport.serializeUser(serializeUser);
+//passport.deserializeUser(deserializeUser);
 
 app.get('/api/assignment/user/:userId', findUserById);
 app.post('/api/assignment/user/', isAdmin, findAllUsers);
@@ -73,7 +73,7 @@ app.put('/api/assignment/user/:userId', updateUser);
 app.delete('/api/assignment/user/:userId',isAdmin, deleteUser);
 app.delete('/api/assignment/unregister/', unRegister);
 
-app.post('/api/assignment/login',passport.authenticate('local'), login);
+app.post('/api/assignment/login',passport.authenticate('assignmentLocal'), login);
 app.get('/api/assignment/checkLoggedIn', checkLoggedIn);
 app.get('/api/assignment/checkAdmin', checkAdmin);
 app.post('/api/assignment/logout', logout);
@@ -101,6 +101,9 @@ function localStrategy(username, password, done) {
 }
 
 function checkLoggedIn(req, res){
+    console.log(req);
+    console.log('--------------------------------------------------------------------------');
+    console.log(req[req._passport.instance._userProperty]);
     if(req.isAuthenticated()){
         res.json(req.user);
     }
@@ -119,14 +122,6 @@ function checkAdmin(req, res){
 }
 
 function login(req, res){
-    // var user = req.user;
-    // if(user && bcrypt.compareSync(password, user.password)) {
-    //     console.log(user)
-    //     return done(null, user);
-    // } else {
-    //     return done(null, false);
-    //     console.log('false')
-    // }
     res.json(req.user);
 }
 
@@ -250,7 +245,7 @@ function register(req, res){
 
 function unRegister(req ,res){
     var userId = req.user._id;
-    console.log(userId);
+    //console.log(userId);
     userModel
         .deleteUser(userId)
         .then(function(status){

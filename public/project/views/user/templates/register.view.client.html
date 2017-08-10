@@ -1,40 +1,69 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand no-left-padding no-left-margin" href="#!/register">
-                Register
-            </a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand text-center logo" href="/">YaOrNa</a>
         </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav pull-right">
+                <li class=><a href="#!/register">Register</a></li>
+                <li><a href="#!/login">Login</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
     </div>
 </nav>
-<div class="container">
-    <div ng-show="model.message" class="alert alert-success">
-        {{model.message}}
+<div class="container-fluid">
+    <div class="col-md-4 col-md-offset-4">
+        <h1 class="text-center logo">YaOrNa</h1>
     </div>
-    <div ng-show="model.error" class="alert alert-warning">
-        {{model.error}}
+
+    <div class="wrap-login col-md-4 col-md-offset-4">
+        <span ng-show="model.message">
+            <p class="alert alert-warning">{{model.message}}</p>
+        </span>
+        <span ng-show="model.error">
+            <p class="alert alert-danger">{{model.error}}</p>
+        </span>
+        <h2 class="login-heading">Register</h2>
+        <div class="form-group">
+            <label>Username</label>
+            <input ng-model="username"
+                   type="text"
+                   class="form-control"
+                   placeholder="username"/>
+            <span ng-show="model.unameerror">
+            <p class="alert alert-danger">{{model.unameerror}}</p>
+            </span>
+            <label>Password</label>
+            <input ng-model="password"
+                   type="password"
+                   class="form-control"
+                   id="password"
+                   placeholder="Password"/>
+            <span ng-show="model.passerror">
+            <p class="alert alert-danger">{{model.passerror}}</p>
+            </span>
+            <label>Verify Password</label>
+            <input ng-model="verifyPassword"
+                   type="password"
+                   class="form-control"
+                   id="verifyPassword"
+                   placeholder="Verify Password"/>
+            <span ng-show="model.vpasserror">
+            <p class="alert alert-danger">{{model.vpasserror}}</p>
+        </span>
+        </div>
+        <a class="btn btn-success btn-block"
+           ng-click="model.register(username,password,verifyPassword)">Register</a>
     </div>
-    <input type="text"
-           id="username"
-           ng-model="username"
-           class="form-control"
-           placeholder="username"/>
-    <input type="password"
-           id="password"
-           ng-model="password"
-           class="form-control"
-           placeholder="password"/>
-    <input type="password"
-           ng-model="verifyPassword"
-           id="verifyPassword"
-           class="form-control"
-           placeholder="verify password"/>
-    <a class="btn btn-primary btn-block"
-       ng-click="model.register(username,password,verifyPassword)">
-        Register
-    </a>
-    <a class="btn btn-danger  btn-block"
-       href="#!/login">Cancel</a>
+</div>
+
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">

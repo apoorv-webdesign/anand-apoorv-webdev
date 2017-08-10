@@ -16,6 +16,7 @@
         init();
 
         function deleteUser(user){
+            console.log('delete');
             userService
                 .deleteUser(user._id)
                 .then(findAllUsers);

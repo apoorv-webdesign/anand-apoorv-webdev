@@ -9,3 +9,4 @@ mongoose.Promise = require('q').Promise;
 
 console.log('server at project started!');
 require('./services/user.service.server');
+require('./services/post.service.server');

@@ -14,19 +14,6 @@
         model.unRegister = unRegister;
         model.logout = logout;
 
-        // userService
-        //     .findUserById(userId)
-        //     .then(renderUser,userError);
-
-        // function init(){
-        //     renderUser(currentUser);
-        // }
-        // init();
-
-        // function renderUser(user){
-        //     model.user = user;
-        // }
-
         function userError(user){
             $location.url('/login');
             model.error = "User not found";
