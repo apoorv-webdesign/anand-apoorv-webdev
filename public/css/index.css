@@ -91,7 +91,7 @@ header .intro-text .skills {
     padding-bottom: 100px;
   }
   header .intro-text .name {
-    font-size: 4.75em;
+    font-size: 1.3em;
   }
   header .intro-text .skills {
     font-size: 1.75em;
@@ -508,4 +508,9 @@ fieldset[disabled] .btn-success.active {
 }
 div#maincontent {
   outline: none;
+}
+
+.image-custom{
+  max-height: 200px;
+  max-width: 200px;
 }

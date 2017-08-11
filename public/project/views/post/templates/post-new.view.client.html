@@ -1,83 +1,51 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="row container-fluid">
-        <div class="col-sm-4 hidden-xs">
-            <div class="navbar-text pull-left">
-                <a class="navbar-link" href="#!/user/{{model.userId}}/website">
-                    <span class="glyphicon glyphicon-chevron-left pull-left"></span>
-                </a>
-            </div>
-
-            <div class="navbar-header">
-                <a class="navbar-brand" href="">
-                    Websites
-                </a>
-            </div>
-            <div class="navbar-text pull-right">
-                <a class="navbar-link" href="#!/user/{{model.userId}}/website/new">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </a>
-            </div>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand text-center logo" href="#!/">YaOrNa</a>
         </div>
-
-        <div class="col-sm-8">
-            <div class="navbar-text pull-left visible-xs">
-                <a class="navbar-link" href="#!/user/{{model.userId}}/website">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-            </div>
-
-            <div class="navbar-text pull-right">
-                <a class="navbar-link" ng-click="model.createWebsite(website)">
-                    <span class="glyphicon glyphicon-ok"></span>
-                </a>
-            </div>
-
-            <div class="navbar-header">
-                <a class="navbar-brand" href=""> New Website</a>
-            </div>
-        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav pull-right">
+                <li ng-if="model.currentUser._id"><a href="#!/profile">Profile</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
     </div>
 </nav>
-
 <div class="container-fluid">
-    <div class="col-sm-4 hidden-xs">
-        <div class="panel panel-primary">
-            <ul class="list-group">
-                <li class="list-group-item borderless" ng-repeat="website in model.websites">
-                    <a href="#!/user/{{model.userId}}/website/{{website._id}}/page">
-                        {{website.name}}
-                    </a>
-                    <a href="#!/user/{{model.userId}}/website/{{website._id}}">
-                        <span class="glyphicon glyphicon-cog pull-right"></span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+    <div ng-show="model.message" class="alert alert-success">
+        {{model.message}}
     </div>
-    <div class="col-xs-12 col-sm-8 padddingTop borderLeft">
-        <label for="name"> Website Name</label>
-        <input class="form-control"
-               ng-model="website.name"
-               id="name"
-               placeholder="Website Name">
-        <span ng-show="model.websiteerror">
-            <h3 class="alert alert-danger">{{model.websiteerror}}</h3>
-        </span>
-        <label for="description">Website description</label>
+    <div class="input-group">
+        <p>{{model.user.username}}</p>
+        <label for="description">What are you eating?</label>
         <textarea class="form-control"
-                  ng-model="website.description"
+                  ng-model="model.post.description"
                   id="description"
                   rows="5"
                   placeholder="Description"></textarea>
     </div>
-</div>
-
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid">
-        <div class="navbar-text pull-right paddingRight">
-            <a href="#!/profile">
-                <span class="glyphicon glyphicon-user"></span>
+    <div class="input-group search-box">
+        <input type="text"
+               ng-model="model.post.location"
+               id="location"
+               class="form-control"
+               value={{model.post.location}}>
+        <span class="input-group-btn">
+            <a ng-click="model.searchLocation()" class="btn btn-default" type="button">
+                <span class="glyphicon glyphicon-globe"></span>
             </a>
-        </div>
+        </span>
     </div>
-</nav>
+    <div class="navbar-text pull-right">
+        <a class="btn btn-default" ng-click="model.createPost(model.post)">
+            <span class="glyphicon glyphicon-ok"></span>
+        </a>
+    </div>
+
+
+</div>

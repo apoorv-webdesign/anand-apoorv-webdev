@@ -1,59 +1,55 @@
-/**
- * Created by Apoorv on 21-06-2017.
- */
 (function () {
     angular
-        .module('WAM')
-        .controller('websiteEditController', websiteEditController);
+        .module('YON')
+        .controller('postEditController', postEditController);
 
-    function websiteEditController($routeParams,
-                                   $location,
-                                   websiteService) {
+    function postEditController(mapService, postService, $location, currentUser, $routeParams) {
         var model = this;
-        model.websiteediterror = false;
-        model.userId = $routeParams['userId'];
-        model.websiteId = $routeParams['websiteId'];
-        model.deleteWebsite = deleteWebsite;
-        model.updateWebsite = updateWebsite;
+        model.postId = $routeParams['postId'];
+        model.user = currentUser;
+        model.message=false;
 
-        function init() {
-            websiteService
-                .findAllWebsitesForUser(model.userId)
-                .then(assignWebsites);
+        model.updatePost = updatePost;
+        model.deletePost = deletePost;
 
-            websiteService
-                .findWebsiteById(model.websiteId)
-                .then(assignWebsite);
+        function init(){
+            postService
+                .findAllPostsForUser(model.user)
+                .then(function(posts){
+                    model.posts = posts;
+                })
+
+            postService
+                .findPostById(model.postId)
+                .then(function(post){
+                    console.log(post);
+                    model.post = post;
+                })
         }
         init();
 
-        function assignWebsite(website){
-            model.website = website;
-        }
-
-        function assignWebsites(websites){
-            model.websites = websites;
-        }
-
-        function deleteWebsite(websiteId) {
-            websiteService
-                .deleteWebsite(websiteId)
-                .then(updateUrl);
-        }
-
-        function updateWebsite(website) {
-            console.log('update');
-            if (website.name === null || website.name === '' || typeof website.name === 'undefined') {
-                model.websiteediterror = 'website name is required';
+        function updatePost(post){
+            if (typeof post.description === 'undefined') {
+                model.postediterror = 'post is undefined ';
                 return;
             }
-            websiteService
-                .updateWebsite(website._id,website)
-                .then(updateUrl);
+            postService
+                .updatePost(post._id,post)
+                .then(function(status){
+                    if(status){
+                        $location.url('/user/home');
+                    }
+                });
         }
 
-        function updateUrl(){
-            $location.url('/user/'+model.userId+'/website');
+        function deletePost(){
+            postService
+                .deletePost(model.post)
+                .then(function(status){
+                    if(status){
+                        $location.url('/user/home');
+                    }
+                });
         }
     }
 })();

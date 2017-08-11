@@ -9,7 +9,7 @@
     function configuration($routeProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: 'views/home/templates/home.html',
+                templateUrl: 'views/home/templates/home.view.client.html',
                 controller: 'homeController',
                 controllerAs: 'model',
                 resolve: {
@@ -40,11 +40,36 @@
                 controllerAs: 'model'
             })
             .when('/searchMaps', {
-                templateUrl: 'views/map/templates/map-search.view.client.html',
-                controller: 'mapSearchController',
+                templateUrl: 'views/post/templates/post-new.view.client.html',
+                controller: 'postNewController',
                 controllerAs: 'model',
                 resolve:{
                     currentUser:checkLoggedIn
+                }
+            })
+            .when('/user/home', {
+                templateUrl: 'views/post/templates/post-list.view.client.html',
+                controller: 'postListController',
+                controllerAs: 'model',
+                resolve:{
+                    currentUser:checkLoggedIn
+                }
+            })
+            .when('/user/post/:postId', {
+                templateUrl: 'views/post/templates/post-edit.view.client.html',
+                controller: 'postEditController',
+                controllerAs: 'model',
+                resolve:{
+                    currentUser:checkLoggedIn
+                }
+            })
+
+            .when('/home/view/:postId', {
+                templateUrl: 'views/post/templates/post-view.view.client.html',
+                controller: 'postViewController',
+                controllerAs: 'model',
+                resolve:{
+                    currentUser:checkCurrentUser
                 }
             })
     }

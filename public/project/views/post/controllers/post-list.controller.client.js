@@ -1,26 +1,25 @@
 /**
- * Created by Apoorv on 21-06-2017.
+ * Created by Apoorv on 31-07-2017.
  */
+
 (function () {
     angular
-        .module('WAM')
-        .controller('websiteListController', websiteListController);
+        .module('YON')
+        .controller('postListController', postListController);
 
-    function websiteListController($routeParams,
-                                   websiteService) {
+    function postListController($location, postService, currentUser) {
         var model = this;
 
-        model.userId = $routeParams['userId'];
+        model.user = currentUser;
 
-        function init() {
-            websiteService
-                .findAllWebsitesForUser(model.userId)
-                .then(renderWebsites);
+        function init(){
+            postService
+                .findAllPostsForUser(model.user)
+                .then(function(data){
+                    console.log(data);
+                    model.posts = data;
+                })
         }
         init();
-
-        function renderWebsites(websites){
-            model.websites = websites;
-        }
     }
 })();

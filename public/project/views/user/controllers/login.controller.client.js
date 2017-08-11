@@ -28,7 +28,7 @@
                 .then(returnUser, userNotExists);
 
             function returnUser(found) {
-                $location.url('/profile');
+                $location.url('/user/home');
             }
 
             function userNotExists() {

@@ -1,42 +1,45 @@
-/**
- * Created by Apoorv on 21-06-2017.
- */
 (function () {
     angular
-        .module('WAM')
-        .controller('websiteNewController', websiteNewController);
+        .module('YON')
+        .controller('postNewController', postNewController);
 
-    function websiteNewController($routeParams,
-                                  $location,
-                                  websiteService) {
+    function postNewController(mapService, postService, $location, currentUser) {
         var model = this;
-        model.websiteerror = false;
-        model.userId = $routeParams['userId'];
-        model.createWebsite = createWebsite;
+        model.post={};
+        model.searchLocation = searchLocation;
+        model.createPost = createPost;
+        model.user = currentUser;
 
-        function init() {
-            websiteService
-                .findAllWebsitesForUser(model.userId)
-                .then(assignWebsites);
-        }
-        init();
-
-        function assignWebsites(websites){
-            model.websites = websites;
-        }
-
-        function createWebsite(website) {
-            if (website === null || website === '' || typeof website === 'undefined') {
-                model.websiteerror = 'website name is required';
-                return;
-            }
-            websiteService
-                .createWebsite(model.userId, website)
-                .then(reDirect);
+        function createPost(post){
+            post._user = currentUser;
+            console.log(post);
+            postService
+                .createPost(post)
+                .then(function(data){
+                    if(data){
+                        model.message = "Posted";
+                    }
+                })
         }
 
-        function reDirect(){
-            $location.url('/user/'+model.userId+'/website');
+
+        function searchLocation(){
+            mapService
+                .searchLocation()
+                .then(function(response) {
+                    var lat = response.data.location.lat;
+                    var lng = response.data.location.lng;
+                    mapService
+                        .getLocationAsText(lat,lng)
+                        .then(function(response){
+                            address = response.data.results[0].address_components
+                            var text ="";
+                            for(i=0; i<address.length; i++){
+                                text += address[i].long_name +', ';
+                            }
+                            model.post.location = text;//response.data.results[0].address_components;
+                        });
+                });
         }
     }
 })();
