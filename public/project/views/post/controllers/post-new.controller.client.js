@@ -12,7 +12,7 @@
 
         function createPost(post){
             post._user = currentUser;
-            console.log(post);
+            post.username = currentUser.username;
             postService
                 .createPost(post)
                 .then(function(data){
@@ -35,7 +35,9 @@
                             address = response.data.results[0].address_components
                             var text ="";
                             for(i=0; i<address.length; i++){
-                                text += address[i].long_name +', ';
+                                if(address[i].types.indexOf('political')> -1) {
+                                    text += address[i].long_name + ', ';
+                                }
                             }
                             model.post.location = text;//response.data.results[0].address_components;
                         });

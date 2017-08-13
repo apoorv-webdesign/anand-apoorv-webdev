@@ -5,8 +5,17 @@ var mongoose = require('mongoose');
 
 var postSchema = mongoose.Schema({
     description: String,
+    username: String,
     location: String,
     _user:{type: mongoose.Schema.Types.ObjectId, ref: "ProjectUserModel"},
+    ya:{
+        count: {type: Number, default: 0},
+        _user: [{type: mongoose.Schema.ObjectId, ref: "ProjectUserModel"}]
+    },
+    na:{
+        count: {type: Number, default: 0},
+        _user: [{type: mongoose.Schema.ObjectId, ref: "ProjectUserModel"}]
+    },
     dateCreated: {type: Date, default: Date.now}
 },{collection: "post"});
 

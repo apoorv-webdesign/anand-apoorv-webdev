@@ -23,7 +23,7 @@ var googleConfig = {
 passport.use(new GoogleStrategy(googleConfig, googleStrategy));
 
 function googleStrategy(token, refreshToken, profile, done) {
-    console.log(profile);
+    // console.log(profile);
     userModel
         .findUserByGoogleId(profile.id)
         .then(
@@ -41,7 +41,8 @@ function googleStrategy(token, refreshToken, profile, done) {
                         google: {
                             id:    profile.id,
                             token: token
-                        }
+                        },
+                        projectType: 'Project'
                     };
                     return userModel.createUser(newGoogleUser);
                 }
@@ -62,8 +63,8 @@ function googleStrategy(token, refreshToken, profile, done) {
 
 app.get('/auth/google/callback',
     passport.authenticate('google', {
-        successRedirect: '/#!/profile',
-        failureRedirect: '/#!/login'
+        successRedirect: '/project/index.html#!/profile',
+        failureRedirect: '/project/index.html#!/login'
     }));
 
 app.get('/auth/google/', passport.authenticate('google', { scope :['profile','email']}));
@@ -82,6 +83,7 @@ app.put('/api/project/updateUser/', updateUser);
 app.get('/api/project/checkAdmin', checkAdmin);
 app.post('/api/project/allFollows/', findAllFollows);
 app.delete('/api/project/unregister/:userId', unRegister);
+app.get('/api/project/userById/:userId', findUserById);
 
 function localStrategy(username, password, done) {
     userModel
@@ -296,5 +298,15 @@ function unRegister(req, res){
         .deleteUser(userId)
         .then(function(status){
             res.send(status);
+        })
+}
+
+function findUserById(req, res){
+    var userId = req.params.userId;
+
+    userModel
+        .findUserById(userId)
+        .then(function(data){
+            res.json(data);
         })
 }

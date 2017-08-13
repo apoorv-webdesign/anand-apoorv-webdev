@@ -23,7 +23,8 @@
             updateUser: updateUser,
             checkAdmin: checkAdmin,
             findAllFollows: findAllFollows,
-            unRegister: unRegister
+            unRegister: unRegister,
+            findUserById: findUserById
         };
         return api;
 
@@ -162,5 +163,14 @@
                     return response;
                 })
         }
+
+        function findUserById(userId){
+            var url=  '/api/project/userById/'+userId;
+            return $http.get(url)
+                .then(function(response){
+                    return response.data;
+                })
+        }
+
     }
 })();

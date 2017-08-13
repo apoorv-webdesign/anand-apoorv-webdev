@@ -11,7 +11,7 @@
             </a>
         </div>
         <div class="navbar-header pull-right">
-            <a ng-click="model.logout()" class="navbar-link navbar-brand no-left-padding no-left-margin">
+            <a ng-click="model.logout()" class="navbar-brand no-left-padding no-left-margin" href="">
                 Logout
             </a>
         </div>
@@ -53,7 +53,7 @@
            ng-click="model.unRegister(model.user)">Unregister</a>
     </div>
 
-    <div class="col-sm-4 col-md-4 col-md-4 visible-lg visible-md visible-sm">
+    <div class="col-xs-12 col-sm-4 col-md-4 col-md-4">
         <div ng-show="model.postmessage" class="alert alert-success">
             {{model.postmessage}}
         </div>
@@ -76,21 +76,21 @@
         <ul class="list-group">
             <li class="list-group-item active">
                 <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-md-6">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-md-6">
                         Description
                     </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-md-6 visible-lg">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-md-6 visible-lg">
                         Actions
                     </div>
                 </div>
             </li>
             <li class="list-group-item borderless" ng-repeat="post in model.posts">
                 <div class="row">
-                    <div ng-if="model.enableEdit !=post._id" class="col-xs-6 col-sm-6 col-md-6 col-md-6">
+                    <div ng-if="model.enableEdit !=post._id" class="col-xs-12 col-sm-6 col-md-6 col-md-6">
                         <p>{{post.description}}</p>
                         <p class="time-ago">{{model.timeSince(post.dateCreated)}}</p>
                     </div>
-                    <div ng-if="model.enableEdit==post._id" class="col-xs-6 col-sm-6 col-md-6 col-md-6"
+                    <div ng-if="model.enableEdit==post._id" class="col-xs-12 col-sm-6 col-md-6 col-md-6"
                          ng-init="model.timeSince(post.dateCreated)">
                         <input type="text"
                                ng-model="post.description"
@@ -98,7 +98,7 @@
                                class="form-control"
                                value={{post.description}}>
                     </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-md-6 visible-lg visible-md">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-md-6">
                         <a ng-if="model.enableEdit !=post._id " class="btn btn-warning" ng-click="model.enableUpdateInput(post._id)">
                             <span class=" glyphicon glyphicon-edit"></span>
                         </a>
@@ -114,24 +114,24 @@
         </ul>
     </div>
 
-    <div class="col-sm-4 col-md-4 col-md-4 visible-lg visible-md visible-sm">
+    <div class="col-xs-12 col-sm-4 col-md-4 col-md-4">
         <h6>Your Friends</h6>
         <ul class="list-group">
             <li class="list-group-item active">
                 <div class="row">
-                    <div class="col-xs-4 col-sm-4 col-md-6 col-md-4">
+                    <div class="col-xs-12 col-sm-4 col-md-6 col-md-4">
                         Friends
                     </div>
                 </div>
             </li>
             <li class="list-group-item borderless" ng-repeat="follow in model.follow">
                 <div class="row">
-                    <div class="col-xs-4 col-sm-4 col-md-6 col-md-4">
+                    <div class="col-xs-12 col-sm-4 col-md-6 col-md-4">
                         <a href="#!/profile/{{follow._id}}">
                             <span class=" glyphicon glyphicon-user"></span>
                         </a>
                     </div>
-                    <div class="col-xs-4 col-sm-4 col-md-6 col-md-4">
+                    <div class="col-xs-12 col-sm-4 col-md-6 col-md-4">
                         <a href="#!/profile/{{follow._id}}">
                             {{follow.username}}
                         </a>

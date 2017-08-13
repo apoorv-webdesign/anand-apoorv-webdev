@@ -11,11 +11,13 @@
         var model= this;
         model.register= register;
 
-        function register(username, password, verifyPassword) {
+        function register(username, password, verifyPassword, role) {
             model.error = false;
             model.unameerror = false;
             model.passerror = false;
             model.vpasserror = false;
+            model.roles = [role]
+
             if (username === null || username === '' || typeof username === 'undefined') {
                 model.unameerror = 'username is required';
                 return;
@@ -44,7 +46,8 @@
             function userNotExists(res) {
                 var newUser = {
                     username: username,
-                    password: password
+                    password: password,
+                    roles: [role]
                 };
                 return userService
                     .register(newUser)

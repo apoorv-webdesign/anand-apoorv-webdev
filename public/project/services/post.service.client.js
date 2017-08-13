@@ -14,7 +14,10 @@
             updatePost: updatePost,
             findPostById: findPostById,
             deletePost: deletePost,
-            search: search
+            search: search,
+            findAllFollowPosts: findAllFollowPosts,
+            ya: ya,
+            na: na
         };
         return api;
 
@@ -71,5 +74,28 @@
                 })
         }
 
+        function findAllFollowPosts(user){
+            var url= '/api/project/findAllFollowPosts/';
+            return $http.post(url, user)
+                .then(function(response){
+                    return response.data;
+                })
+        }
+
+        function ya(post){
+            var url=  '/api/project/ya/'+post._id;
+            return $http.put(url, post)
+                .then(function(response){
+                    return response.data;
+                })
+        }
+
+        function na(post){
+            var url=  '/api/project/na/'+post._id;
+            return $http.put(url,post)
+                .then(function(response){
+                    return response.data;
+                })
+        }
     }
 })();

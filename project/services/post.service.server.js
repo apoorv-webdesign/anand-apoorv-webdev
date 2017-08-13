@@ -15,10 +15,13 @@ var postModel = require('../model/post/post.model.server');
 
 app.post('/api/project/createPost/', createPost);
 app.post('/api/project/allPosts/', findAllPostsForUser);
-app.put('/api/project/updatePost/:postid', updatePost);
+app.put('/api/project/updatePost/:postId', updatePost);
 app.get('/api/project/onePost/:postId', findPostById);
 app.delete('/api/project/deletePost/:postId', deletePost);
 app.get('/api/project/search/:searchText', search);
+app.post('/api/project/findAllFollowPosts/', findAllFollowPosts);
+app.put('/api/project/na/:postId', updatePost);
+app.put('/api/project/ya/:postId', updatePost);
 
 function createPost(req, res) {
     var post = req.body;
@@ -42,7 +45,7 @@ function findAllPostsForUser(req, res){
 function updatePost(req, res){
     var post = req.body;
     postModel
-        .updatePost(req.params.postid, post)
+        .updatePost(req.params.postId, post)
         .then(function(status){
             res.send(status);
         })
@@ -75,3 +78,14 @@ function search(req, res){
             res.json(result);
         });
 }
+
+function findAllFollowPosts(req, res){
+    var user = req.body;
+
+    postModel
+        .findAllFollowPosts(user)
+        .then(function(result){
+            res.json(result);
+        })
+}
+

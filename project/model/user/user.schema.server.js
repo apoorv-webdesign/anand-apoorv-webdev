@@ -12,7 +12,7 @@ var userSchema = mongoose.Schema({
         id: String,
         token: String
     },
-    roles: [{type: String, default: 'USER', enum:['USER', 'ADMIN', 'CLIENT']}],
+    roles: [{type: String, default: 'USER', enum:['USER', 'ADMIN', 'RESTAURANT']}],
     email: String,
     phone: String,
     projectType: String,

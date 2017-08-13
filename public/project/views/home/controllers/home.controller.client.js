@@ -11,7 +11,23 @@
         model.addFollow = addFollow;
         model.deleteFollow = deleteFollow;
         model.userFollowStatus = userFollowStatus;
+        model.findUserById = findUserById;
         model.logout = logout;
+        model.ya = ya;
+        model.na =na;
+
+        model.posts={};
+
+        function init(){
+            if(model.user._id){
+                postService
+                    .findAllFollowPosts(model.user)
+                    .then(function(data){
+                        model.posts = data;
+                    })
+            }
+        }
+        init();
 
         function search(searchText){
             model.searchText = searchText;
@@ -78,6 +94,41 @@
                 .then(function(){
                     $location.url('/login');
                 });
+        }
+
+        function findUserById(userId){
+            return userService
+                .findUserById(userId)
+                .then(function(user){
+
+                })
+        }
+
+        function ya(post){
+            // var y = post.na.count;
+            post.ya['count'] += 1;
+            console.log(post);
+            // post.ya._user = model.user;
+            postService
+                .ya(post)
+                .then(function(status){
+                    init();
+                })
+        }
+
+        function na(post){
+            // console.log(post)
+            // var n = post.na.count;
+            console.log(post.na['count'])
+            post.na['count'] += 1;
+            console.log(post.na['count'])
+            // post.na._user = model.user;
+            // console.log(post);
+            postService
+                .na(post)
+                .then(function(status){
+                    init();
+                })
         }
     }
 })();

@@ -56,11 +56,17 @@
                    id="verifyPassword"
                    placeholder="Verify Password"/>
             <span ng-show="model.vpasserror">
-            <p class="alert alert-danger">{{model.vpasserror}}</p>
-        </span>
+                <p class="alert alert-danger">{{model.vpasserror}}</p>
+            </span>
+            <label for="userType">User Type</label>
+            <select class="form-control" id="userType" ng-model="userType">
+                <option value="0">---select---</option>
+                <option value="USER">User</option>
+                <option value="RESTAURANT">Restaurant</option>
+            </select>
         </div>
         <a class="btn btn-success btn-block"
-           ng-click="model.register(username,password,verifyPassword)">Register</a>
+           ng-click="model.register(username,password,verifyPassword, userType)">Register</a>
     </div>
 </div>
 

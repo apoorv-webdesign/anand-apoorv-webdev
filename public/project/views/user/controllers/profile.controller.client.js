@@ -92,6 +92,7 @@
         }
 
         function updatePost(post){
+            console.log(post);
             postService
                 .updatePost(post._id,post)
                 .then(function(status){
@@ -104,6 +105,7 @@
 
         function createPost(post){
             post._user = currentUser;
+            post.username = currentUser.username;
             console.log(post);
             postService
                 .createPost(post)
@@ -148,8 +150,11 @@
                         .then(function(response){
                             address = response.data.results[0].address_components
                             var text ="";
+                            console.log(address);
                             for(i=0; i<address.length; i++){
-                                text += address[i].long_name +', ';
+                                if(address[i].types.indexOf('political')> -1) {
+                                    text += address[i].long_name + ', ';
+                                }
                             }
                             model.newPost.location = text;//response.data.results[0].address_components;
                         });

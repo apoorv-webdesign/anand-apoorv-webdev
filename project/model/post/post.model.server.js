@@ -4,8 +4,10 @@
 
 var mongoose = require('mongoose');
 var postSchema = require('./post.schema.server');
+var userSchema = require('../user/user.schema.server');
 
 var postModel = mongoose.model('PostModel', postSchema);
+var userModel = mongoose.model('ProjectUserModel', userSchema);
 
 postModel.createPost = createPost;
 postModel.findAllPostsForUser = findAllPostsForUser;
@@ -13,7 +15,7 @@ postModel.updatePost = updatePost;
 postModel.findPostById = findPostById;
 postModel.deletePost = deletePost;
 postModel.search = search;
-// postModel.deleteUser = deleteUser;
+postModel.findAllFollowPosts = findAllFollowPosts;
 
 module.exports = postModel;
 
@@ -58,23 +60,18 @@ function search(txt){
     // return postModel
     //     .find({ $search:text });
 }
-// function findUserByUsername(username){
-//     return userModel.findOne({username: username});
-// }
-//
-// function createUser(user){
-//     return userModel.create(user);
-// }
-//
-// function findUserById(id){
-//     return userModel.findById(id);
-// }
-//
-// function findAllUsers(){
-//     return userModel.find();
-// }
-//
-// function deleteUser(userId){
-//     return userModel.remove({_id: userId})
-//     //return userModel.remove({_id:userId});
-// }
+
+function findAllFollowPosts(user) {
+    return userModel
+        .findOne({_id: user._id})
+        .then(function (user) {
+            if (user) {
+                return userModel.find({_id:{ $in : user.follow}});
+            }
+        })
+        .then(function(follows){
+            if(follows){
+                return postModel.find({_user:{$in : follows}});
+            }
+        })
+}
