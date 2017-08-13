@@ -1,9 +1,95 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand text-center logo" href="/">YaOrNa</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav pull-right">
+                <li><a ng-if="model.user._id" href="#!/profile">Profile</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
 <div class="container-fluid">
-    <h1>Admin Users</h1>
+    <h1>Admin Dashboard</h1>
+
     <ul class="list-group">
-        <li ng-repeat="user in model.users" class="list-group-item">
-            <span ng-click="model.deleteUser(user)" class="glyphicon glyphicon-remove pull-right"></span>
-            {{user.username}} {{user.firstName}} {{user.lastName}} {{user.roles}}
+        <li class="list-group-item active">
+            <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-md-2">
+                    User Name
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-md-2">
+                    First Name
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-md-2">
+                    Last Name
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-md-2">
+                    Roles
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-md-2">
+                    Options
+                </div>
+            </div>
         </li>
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-md-2 input-sm">
+                    <input type="text" ng-if="model.enableEdit" ng-model="model.user.username" placeholder="Username">
+                    <input type="text" ng-if="model.enableEdit==false" ng-model="user.username" placeholder="Username">
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-md-2 input-sm">
+                    <input type="text" ng-if="model.enableEdit" ng-model="model.user.firstName" placeholder="first name">
+                    <input type="text" ng-if="model.enableEdit==false" ng-model="user.firstName" placeholder="first name">
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-md-2 input-sm">
+                    <input type="text" ng-if="model.enableEdit" ng-model="model.user.lastName" placeholder="Last name">
+                    <input type="text" ng-if="model.enableEdit==false" ng-model="user.lastName" placeholder="Last name">
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-md-2 input-sm">
+                    <input type="text" ng-if="model.enableEdit" ng-model="model.user.roles" placeholder="Roles">
+                    <input type="text" ng-if="model.enableEdit==false" ng-model="user.roles" placeholder="Roles">
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-md-2">
+                    <a class="btn btn-success btn-sm " ng-if="model.enableEdit==false" ng-click="model.createUser(model.user)">Create</a>
+                    <a class="btn btn-warning btn-sm" ng-if="model.enableEdit" ng-click="model.updateUser(model.user)">Update</a>
+                </div>
+                <div class="col-xs-1 col-sm-1 col-md-1 col-md-1">
+                    <span ng-click="model.create(user)" class="glyphicon glyphicon-plus"></span>
+                </div>
+            </div>
+        </li>
+        <ul class="list-group">
+            <li ng-repeat="user in model.users" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-md-2">
+                        {{user.username}}
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-md-2">
+                        {{user.firstName}}
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-md-2">
+                        {{user.lastName}}
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-md-2">
+                        {{user.roles}}
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-md-2">
+                        <span ng-click="model.deleteUser(user)" class="glyphicon glyphicon-remove"></span>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-md-2">
+                        <span ng-click="model.edit(user)" class="glyphicon glyphicon-edit"></span>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </ul>
 </div>

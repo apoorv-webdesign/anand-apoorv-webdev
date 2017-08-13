@@ -31,5 +31,14 @@
                     return response.data;
                 });
         }
+
+        function deleteComment(comment){
+            var url = '/api/project/deleteComment/'+comment._id;
+            return $http
+                .delete(url)
+                .then(function (status) {
+                    return status;
+                });
+        }
     }
 })();

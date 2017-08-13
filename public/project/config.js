@@ -37,7 +37,10 @@
             .when('/admin/users', {
                 templateUrl: 'views/admin/templates/admin-users.view.client.html',
                 controller: 'adminUsersController',
-                controllerAs: 'model'
+                controllerAs: 'model',
+                resolve:{
+                    currentUser:checkAdmin
+                }
             })
             .when('/searchMaps', {
                 templateUrl: 'views/post/templates/post-new.view.client.html',
@@ -72,6 +75,14 @@
                     currentUser:checkCurrentUser
                 }
             })
+            .when('#!/profile/:profileId', {
+                templateUrl: 'views/post/templates/post-view.view.client.html',
+                controller: 'postViewController',
+                controllerAs: 'model',
+                resolve:{
+                    currentUser:checkCurrentUser
+                }
+            })
     }
 
     function checkLoggedIn($q, $location, userService){
@@ -97,6 +108,21 @@
             .then(function(currentUser){
                 if(currentUser === '0'){
                     deferred.resolve({});
+                }
+                else{
+                    deferred.resolve(currentUser);
+                }
+            })
+        return deferred.promise;
+    }
+    function checkAdmin($q, $location, userService){
+        var deferred = $q.defer();
+        userService
+            .checkAdmin()
+            .then(function(currentUser){
+                if(currentUser === '0'){
+                    deferred.reject();
+                    $location.url('/');
                 }
                 else{
                     deferred.resolve(currentUser);

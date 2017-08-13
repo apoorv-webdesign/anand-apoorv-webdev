@@ -32,7 +32,6 @@
             return $http
                 .post(url, user)
                 .then(function(response){
-                    console.log(response);
                     return response.data;
                 })
         }

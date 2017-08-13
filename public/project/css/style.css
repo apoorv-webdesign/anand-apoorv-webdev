@@ -20,7 +20,8 @@ body {
 .logo{
     padding: 10px;
     font-family: 'Exo', sans-serif;
-    color: #8a95db;
+    font-size: 28px;
+    color: red;
 }
 .forgot-password{
     padding-top: 20px;
@@ -35,4 +36,11 @@ body {
 }
 .search-box{
     padding-top: 50px;
+}
+.time-ago{
+    font-size: 12px;
+    font-family:cursive;
+}
+.your-posts{
+    padding-top:100px;
 }

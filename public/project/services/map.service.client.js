@@ -18,7 +18,7 @@
 
         function searchLocation() {
             var urlBase = 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyA-FduCwvYeyUpRqaFGWw3OD0BYO2rPi3o';
-            return $http.post(urlBase,{});
+            return $http.post(urlBase,{"considerIp": "true"});
 
         }
 

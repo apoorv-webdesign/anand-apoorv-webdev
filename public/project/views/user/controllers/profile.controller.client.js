@@ -6,15 +6,38 @@
         .module('YON')
         .controller('profileController', profileController);
 
-    function profileController(currentUser, $location, $routeParams, userService) {
+    function profileController(currentUser, $location, $routeParams, userService, postService, mapService) {
         var model = this;
         //  var userId = currentUser._id;//$routeParams['userId'];
         model.user = currentUser;
         model.update = update;
         model.unRegister = unRegister;
         model.logout = logout;
+        model.timeSince = timeSince;
+        model.deletePost = deletePost;
+        model.updatePost = updatePost;
+        model.enableUpdateInput =enableUpdateInput;
+        model.searchLocation = searchLocation;
+        model.createPost = createPost;
 
-        console.log(currentUser);
+        model.enableEdit = false;
+        model.newPost={};
+
+        function init(){
+            postService
+                .findAllPostsForUser(model.user)
+                .then(function(data){
+                    model.posts = data;
+                })
+
+            userService
+                .findAllFollows(model.user)
+                .then(function(data){
+                    model.follow = data;
+                })
+        }
+        init();
+
 
         function userError(user){
             $location.url('/login');
@@ -23,19 +46,17 @@
 
         function update(user) {
             userService
-                .updateUser(user._id, user)
+                .updateUser(user)
                 .then(profileUpdated);
         }
 
         function profileUpdated(userId){
-            console.log(userId);
             model.message = 'Profile Updated!';
-            //$location.url('/user/'+userId)
         }
 
         function unRegister(user) {
             userService
-                .unRegister()
+                .unRegister(user)
                 .then(userDeleted, userNotDeleted);
         }
 
@@ -52,6 +73,86 @@
                 .logout()
                 .then(function(){
                     $location.url('/login');
+                });
+        }
+
+        function deletePost(post){
+            postService
+                .deletePost(post)
+                .then(function(status){
+                    if(status){
+                        init();
+                    }
+                });
+        }
+
+        function enableUpdateInput(postId){
+            model.enableEdit = postId;
+            init();
+        }
+
+        function updatePost(post){
+            postService
+                .updatePost(post._id,post)
+                .then(function(status){
+                    if(status){
+                        model.enableEdit = false;
+                        init();
+                    }
+                });
+        }
+
+        function createPost(post){
+            post._user = currentUser;
+            console.log(post);
+            postService
+                .createPost(post)
+                .then(function(data){
+                    if(data){
+                        init();
+                        model.newPost={};
+                        model.postmessage = "Posted";
+                    }
+                })
+        }
+
+        function timeSince(tst) {
+            var timeStamp = new Date(tst);
+            var now = new Date(),
+                secondsPast = (now.getTime() - timeStamp.getTime()) / 1000;
+            if(secondsPast < 60){
+                return timeAgo = parseInt(secondsPast) + 's ago';
+            }
+            if(secondsPast < 3600){
+                return timeAgo = parseInt(secondsPast/60) + 'm ago';
+            }
+            if(secondsPast <= 86400){
+                return timeAgo = parseInt(secondsPast/3600) + 'h ago';
+            }
+            if(secondsPast > 86400){
+                day = timeStamp.getDate();
+                month = timeStamp.toDateString().match(/ [a-zA-Z]*/)[0].replace(" ","");
+                year = timeStamp.getFullYear() == now.getFullYear() ? "" :  " "+timeStamp.getFullYear();
+                return timeAgo =  day + " " + month + year;
+            }
+        }
+
+        function searchLocation(){
+            mapService
+                .searchLocation()
+                .then(function(response) {
+                    var lat = response.data.location.lat;
+                    var lng = response.data.location.lng;
+                    mapService
+                        .getLocationAsText(lat,lng)
+                        .then(function(response){
+                            address = response.data.results[0].address_components
+                            var text ="";
+                            for(i=0; i<address.length; i++){
+                                text += address[i].long_name +', ';
+                            }
+                            model.newPost.location = text;//response.data.results[0].address_components;
+                        });
                 });
         }
     }

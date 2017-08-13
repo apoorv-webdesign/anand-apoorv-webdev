@@ -72,7 +72,6 @@ app.post('/api/assignment/createUser/', createUser);
 app.put('/api/assignment/user/:userId', updateUser);
 app.delete('/api/assignment/user/:userId',isAdmin, deleteUser);
 app.delete('/api/assignment/unregister/', unRegister);
-
 app.post('/api/assignment/login',passport.authenticate('assignmentLocal'), login);
 app.get('/api/assignment/checkLoggedIn', checkLoggedIn);
 app.get('/api/assignment/checkAdmin', checkAdmin);
@@ -101,9 +100,6 @@ function localStrategy(username, password, done) {
 }
 
 function checkLoggedIn(req, res){
-    console.log(req);
-    console.log('--------------------------------------------------------------------------');
-    console.log(req[req._passport.instance._userProperty]);
     if(req.isAuthenticated()){
         res.json(req.user);
     }

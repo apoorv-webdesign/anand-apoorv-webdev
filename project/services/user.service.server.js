@@ -13,6 +13,60 @@ passport.use('projectLocal',new LocalStrategy(localStrategy));
 passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
 
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var googleConfig = {
+    clientID     : process.env.GOOGLE_CLIENT_ID,
+    clientSecret : process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL  : process.env.GOOGLE_CALLBACK_URL
+};
+
+passport.use(new GoogleStrategy(googleConfig, googleStrategy));
+
+function googleStrategy(token, refreshToken, profile, done) {
+    console.log(profile);
+    userModel
+        .findUserByGoogleId(profile.id)
+        .then(
+            function(user) {
+                if(user) {
+                    return done(null, user);
+                } else {
+                    var email = profile.emails[0].value;
+                    var emailParts = email.split("@");
+                    var newGoogleUser = {
+                        username:  emailParts[0],
+                        firstName: profile.name.givenName,
+                        lastName:  profile.name.familyName,
+                        email:     email,
+                        google: {
+                            id:    profile.id,
+                            token: token
+                        }
+                    };
+                    return userModel.createUser(newGoogleUser);
+                }
+            },
+            function(err) {
+                if (err) { return done(err); }
+            }
+        )
+        .then(
+            function(user){
+                return done(null, user);
+            },
+            function(err){
+                if (err) { return done(err); }
+            }
+        );
+}
+
+app.get('/auth/google/callback',
+    passport.authenticate('google', {
+        successRedirect: '/#!/profile',
+        failureRedirect: '/#!/login'
+    }));
+
+app.get('/auth/google/', passport.authenticate('google', { scope :['profile','email']}));
 app.post('/api/project/user/', findUserByCredentials);
 app.post('/api/project/user/register/validation/', registrationValidation);
 app.post('/api/project/register/', register);
@@ -21,6 +75,13 @@ app.get('/api/project/checkLoggedIn/', checkLoggedIn);
 app.post('/api/project/logout/', logout);
 app.post('/api/project/allUsers/', findAllUsers);
 app.delete('/api/project/deleteUser/:userId', deleteUser);
+app.get('/api/project/user/search/:searchText', search);
+app.post('/api/project/user/follow/', addFollow);
+app.post('/api/project/user/unfollow/', deleteFollow);
+app.put('/api/project/updateUser/', updateUser);
+app.get('/api/project/checkAdmin', checkAdmin);
+app.post('/api/project/allFollows/', findAllFollows);
+app.delete('/api/project/unregister/:userId', unRegister);
 
 function localStrategy(username, password, done) {
     userModel
@@ -155,6 +216,82 @@ function findAllUsers(req, res){
 
 function deleteUser(req, res){
     userId = req.param('userId')
+    userModel
+        .deleteUser(userId)
+        .then(function(status){
+            res.send(status);
+        })
+}
+
+function search(req, res){
+    var text = req.params.searchText;
+    userModel
+        .search(text)
+        .then(function(result){
+            console.log(result);
+            res.json(result);
+        });
+}
+
+function addFollow(req, res){
+    var user = req.body;
+    userModel
+        .addFollow(user.currentUser, user.followedUser)
+        .then(function(status){
+            if(status){
+                userModel.addFollower(user.followedUser, user.currentUser)
+                .then(function(status){
+                    res.send(status);
+                })
+            }
+        })
+}
+
+function deleteFollow(req, res){
+    var user = req.body;
+    userModel
+        .deleteFollow(user.currentUser, user.followedUser)
+        .then(function(status){
+            if(status){
+                userModel.deleteFollower(user.followedUser, user.currentUser)
+                    .then(function(status){
+                        res.send(status);
+                    })
+            }
+        })
+}
+
+function updateUser(req, res){
+    user = req.body;
+    userModel
+        .updateUser(user)
+        .then(function(status){
+            res.send(status);
+        })
+}
+
+function checkAdmin(req, res){
+    if(req.isAuthenticated() && req.user.roles.indexOf('ADMIN') >-1){
+        res.json(req.user);
+    }
+    else{
+        res.send('0');
+    }
+}
+
+function findAllFollows(req, res){
+    var user = req.body;
+    userModel
+        .findAllFollows(user)
+        .then(function(data){
+            if(data){
+                res.json(data);
+            }
+        });
+}
+
+function unRegister(req, res){
+    var userId = req.params.userId;
     userModel
         .deleteUser(userId)
         .then(function(status){

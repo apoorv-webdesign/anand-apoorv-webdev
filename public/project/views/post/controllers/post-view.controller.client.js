@@ -32,8 +32,8 @@
                 model.postediterror = 'comment is undefined ';
                 return;
             }
-            model.comment.user= model.user._id;
-            model.comment.post = model.postId;
+            model.comment._user= model.user;
+            model.comment._post = model.post;
             console.log(model.comment);
             commentService
                 .addComment(model.comment)

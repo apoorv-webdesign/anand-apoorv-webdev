@@ -12,12 +12,13 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav pull-right">
-                <li ng-if="model.currentUser._id"><a href="#!/profile">Profile</a></li>
-                <li><a href="#!/register">Register</a></li>
-                <li><a href="#!/login">Login</a></li>
+                <li ng-if="model.user._id"><a href="#!/profile">{{model.user.username}}</a></li>
+                <li ng-if="model.user._id"><a ng-click="model.logout()" href="">Logout</a></li>
+                <li ng-if="model.user._id==undefined"><a href="#!/register">Register</a></li>
+                <li ng-if="model.user._id==undefined"><a href="#!/login">Login</a></li>
             </ul>
             <div class="input-group col-md-4 col-md-offset-4">
-                <input ng-model="searchText" type="text" class="form-control">
+                <input ng-model="searchText" ng-keyup="model.search(searchText)" type="text" class="form-control">
                 <!--<input type="text" class="form-control" placeholder="Search" ng-model="searchText">-->
                 <div class="input-group-btn">
                     <a class="btn btn-default" ng-click="model.search(searchText)"><i class="glyphicon glyphicon-search"></i></a>
@@ -27,36 +28,179 @@
     </div>
 </nav>
 
-<div class="container">
+<div ng-if="model.user.username"></div>
 
-    <a class="btn btn-info" href="#!/searchMaps">Add Post</a>
 
-    <ul ng-if="model.searchResults" class="list-group">
-        <li class="list-group-item active">
-            <div class="row">
-                <div class="col-lg-5 col-md-8 col-xs-11">
-                    Description
+
+<div ng-if="model.user.username==undefined" class="container-fluid">
+    <div ng-if="model.foodSearchResults" class="col-xs-12 col-sm-4 col-md-4 col-md-4">
+            <h6 class="your-posts">Food Items </h6>
+            <ul class="list-group">
+                <li class="list-group-item active">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-md-6">
+                            Food Name
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-md-6 visible-lg">
+                            Food Description
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item borderless" ng-repeat="food in model.foodSearchResults">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-md-6">
+                            <p>{{food.food_name}}</p>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-md-6">
+                            <p>{{food.food_description}}</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+    </div>
+
+    <div ng-if="model.userSearchResults" class="col-xs-12 col-sm-4 col-md-4 col-md-4">
+        <h6 class="your-posts">Users </h6>
+        <ul class="list-group">
+            <li class="list-group-item active">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-md-6">
+                        Username
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-md-6 visible-lg">
+                        Action
+                    </div>
                 </div>
-                <div class="col-lg-3 visible-lg">
-                    Created
+            </li>
+            <li class="list-group-item borderless" ng-repeat="userSearchResult in model.userSearchResults">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-md-6">
+                        <a href="#!/home/view/{{userSearchResult._id}}">
+                            {{userSearchResult.username}}
+                        </a>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-md-6">
+                        <a class="btn btn-warning"
+                           ng-if="model.userFollowStatus(userSearchResult)"
+                           ng-click="model.deleteFollow(userSearchResult)">{{model.followStatus}}
+                        </a>
+                        <a class="btn btn-info"
+                           ng-if="model.userFollowStatus(userSearchResult)==false"
+                           ng-click="model.addFollow(userSearchResult)">{{model.followStatus}}
+                        </a>
+                    </div>
                 </div>
-                <div class="col-xs-1">
+            </li>
+        </ul>
+    </div>
+
+
+    <div ng-if="model.postSearchResults"  class="col-xs-12 col-sm-4 col-md-4 col-md-4">
+        <h6 class="your-posts">Posts </h6>
+        <ul class="list-group">
+            <li class="list-group-item active">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-md-6">
+                        Description
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-md-6 visible-lg">
+                        Created
+                    </div>
                 </div>
-            </div>
-        </li>
-        <li class="list-group-item borderless" ng-repeat="searchResult in model.searchResults">
-            <div class="row">
-                <div class="col-lg-5 col-md-8 col-xs-11">
-                    <a href="#!/home/view/{{searchResult._id}}">
-                        {{searchResult.description}}
-                    </a>
+            </li>
+            <li class="list-group-item borderless" ng-repeat="postSearchResult in model.postSearchResults">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-md-6">
+                        <a href="#!/home/view/{{postSearchResult._id}}">
+                            {{postSearchResult.description}}
+                        </a>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-md-6">
+                        {{postSearchResult.dateCreated | date:'medium'}}
+                    </div>
                 </div>
-                <div class="col-lg-3 visible-lg">
-                    {{searchResult.dateCreated | date:'medium'}}
-                </div>
-                <div class="col-md-3 hidden-sm hidden-xs">
-                </div>
-            </div>
-        </li>
-    </ul>
+            </li>
+        </ul>
+    </div>
+
+
+
+
+
+
+    <!--<a class="btn btn-info" href="#!/searchMaps">Add Post</a>-->
+    <!--<ul ng-if="model.userSearchResults" class="list-group">-->
+        <!--<h3>Users</h3>-->
+        <!--<li class="list-group-item active">-->
+            <!--<div class="row">-->
+                <!--<div class="col-sm-3">-->
+                    <!--Username-->
+                <!--</div>-->
+                <!--<div class="col-sm-3">-->
+                    <!--FirstName-->
+                <!--</div>-->
+                <!--<div class="col-sm-3">-->
+                    <!--LastName-->
+                <!--</div>-->
+                <!--<div class="col-sm-3">-->
+                    <!--Action-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</li>-->
+        <!--<li class="list-group-item borderless" ng-repeat="userSearchResult in model.userSearchResults">-->
+            <!--<div class="row">-->
+                <!--<div class="col-sm-3">-->
+                    <!--<a href="#!/home/view/{{userSearchResult._id}}">-->
+                        <!--{{userSearchResult.username}}-->
+                    <!--</a>-->
+                <!--</div>-->
+                <!--<div class="col-sm-3">-->
+                    <!--{{userSearchResult.firstName}}-->
+                <!--</div>-->
+                <!--<div class="col-sm-3">-->
+                    <!--{{userSearchResult.lastName}}-->
+                <!--</div>-->
+                <!--<div class="col-sm-3">-->
+                    <!--<a class="btn btn-warning"-->
+                       <!--ng-if="model.userFollowStatus(userSearchResult)"-->
+                       <!--ng-click="model.deleteFollow(userSearchResult)">{{model.followStatus}}-->
+                    <!--</a>-->
+                    <!--<a class="btn btn-info"-->
+                       <!--ng-if="model.userFollowStatus(userSearchResult)==false"-->
+                       <!--ng-click="model.addFollow(userSearchResult)">{{model.followStatus}}-->
+                    <!--</a>-->
+
+                <!--</div>-->
+            <!--</div>-->
+        <!--</li>-->
+    <!--</ul>-->
+    <!--<ul ng-if="model.postSearchResults" class="list-group">-->
+        <!--<h3>Posts</h3>-->
+        <!--<li class="list-group-item active">-->
+            <!--<div class="row">-->
+                <!--<div class="col-lg-5 col-md-8 col-xs-11">-->
+                    <!--Description-->
+                <!--</div>-->
+                <!--<div class="col-lg-3 visible-lg">-->
+                    <!--Created-->
+                <!--</div>-->
+                <!--<div class="col-xs-1">-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</li>-->
+        <!--<li class="list-group-item borderless" ng-repeat="postSearchResult in model.postSearchResults">-->
+            <!--<div class="row">-->
+                <!--<div class="col-lg-5 col-md-8 col-xs-11">-->
+                    <!--<a href="#!/home/view/{{postSearchResult._id}}">-->
+                        <!--{{postSearchResult.description}}-->
+                    <!--</a>-->
+                <!--</div>-->
+                <!--<div class="col-lg-3 visible-lg">-->
+                    <!--{{postSearchResult.dateCreated | date:'medium'}}-->
+                <!--</div>-->
+                <!--<div class="col-md-3 hidden-sm hidden-xs">-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</li>-->
+    <!--</ul>-->
 </div><!-- /.container -->

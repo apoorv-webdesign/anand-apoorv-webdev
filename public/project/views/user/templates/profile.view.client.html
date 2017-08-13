@@ -1,18 +1,18 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-text pull-left paddingExtra">
-            <a href="../../../index.html">
+            <a href="#!/">
                 <span class="glyphicon glyphicon-chevron-left pull-left navbar-link"></span>
             </a>
         </div>
-        <div class="navbar-text pull-right">
-            <a href="profile.view.client.html" class="navbar-link">
-                <span class="glyphicon glyphicon-ok pull-right"></span>
+        <div class="navbar-header">
+            <a class="navbar-brand no-left-padding no-left-margin" href="#!/profile">
+                Profile
             </a>
         </div>
-        <div class="navbar-header">
-            <a class="navbar-brand no-left-padding no-left-margin" href="profile.view.client.html">
-                Profile
+        <div class="navbar-header pull-right">
+            <a ng-click="model.logout()" class="navbar-link navbar-brand no-left-padding no-left-margin">
+                Logout
             </a>
         </div>
     </div>
@@ -20,37 +20,124 @@
 
 
 <div class="container">
-    <form>
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input ng-model="model.user.username" type="text" class="form-control" id="username" placeholder="Username">
+    <div class="col-xs-12 col-sm-4 col-md-4 col-md-4">
+        <div ng-show="model.message" class="alert alert-success">
+            {{model.message}}
         </div>
-        <div class="form-group">
-            <label for="email">Email address</label>
-            <input ng-model="model.user.email" type="email" class="form-control" id="email" placeholder="alice@wonderland.com">
-        </div>
-        <div class="form-group">
-            <label for="first-name">First Name</label>
-            <input ng-model="model.user.firstName" type="text" class="form-control" id="first-name" placeholder="Alice">
-        </div>
-        <div class="form-group">
-            <label for="last-name">Last Name</label>
-            <input ng-model="model.user.lastName" type="text" class="form-control" id="last-name" placeholder="Wonderland">
-        </div>
-    </form>
-
-    <a class="btn btn-primary btn-block"
-       href="../website/website-list.html">Websites</a>
-    <a class="btn btn-danger  btn-block"
-       ng-click="model.logout()">Logout</a>
-</div>
-
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid">
-        <div class="navbar-text pull-right paddingRight">
-            <a href="../user/profile.html">
-                <span class="glyphicon glyphicon-user"></span>
-            </a>
-        </div>
+        <h6>Your Profile</h6>
+        <form>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input ng-model="model.user.username" type="text" class="form-control" id="username"
+                       placeholder="Username">
+            </div>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input ng-model="model.user.email" type="email" class="form-control" id="email"
+                       placeholder="alice@wonderland.com">
+            </div>
+            <div class="form-group">
+                <label for="first-name">First Name</label>
+                <input ng-model="model.user.firstName" type="text" class="form-control" id="first-name"
+                       placeholder="Alice">
+            </div>
+            <div class="form-group">
+                <label for="last-name">Last Name</label>
+                <input ng-model="model.user.lastName" type="text" class="form-control" id="last-name"
+                       placeholder="Wonderland">
+            </div>
+        </form>
+        <a class="btn btn-success  btn-block"
+           ng-click="model.update(model.user)">Update</a>
+        <a class="btn btn-danger  btn-block"
+           ng-click="model.unRegister(model.user)">Unregister</a>
     </div>
-</nav>
+
+    <div class="col-sm-4 col-md-4 col-md-4 visible-lg visible-md visible-sm">
+        <div ng-show="model.postmessage" class="alert alert-success">
+            {{model.postmessage}}
+        </div>
+        <h6>Add New Post</h6>
+        <input type="text"
+               ng-model="model.newPost.description"
+               class="form-control"
+               value={model.newPost.description}}>
+        <p ng-if="model.newPost.location"><span class="glyphicon glyphicon-map-marker">---{{model.newPost.location}}</span></p>
+        <span class="input-group-btn">
+            <a ng-click="model.searchLocation()" class="btn btn-default" type="button">
+                <span class="glyphicon glyphicon-globe"></span>
+            </a>
+        </span>
+        <a class="btn btn-success pull-right" ng-click="model.createPost(model.newPost)">
+            Post
+        </a>
+
+        <h6 class="your-posts">Your Posts</h6>
+        <ul class="list-group">
+            <li class="list-group-item active">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-md-6">
+                        Description
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-md-6 visible-lg">
+                        Actions
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item borderless" ng-repeat="post in model.posts">
+                <div class="row">
+                    <div ng-if="model.enableEdit !=post._id" class="col-xs-6 col-sm-6 col-md-6 col-md-6">
+                        <p>{{post.description}}</p>
+                        <p class="time-ago">{{model.timeSince(post.dateCreated)}}</p>
+                    </div>
+                    <div ng-if="model.enableEdit==post._id" class="col-xs-6 col-sm-6 col-md-6 col-md-6"
+                         ng-init="model.timeSince(post.dateCreated)">
+                        <input type="text"
+                               ng-model="post.description"
+                               id="description"
+                               class="form-control"
+                               value={{post.description}}>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-md-6 visible-lg visible-md">
+                        <a ng-if="model.enableEdit !=post._id " class="btn btn-warning" ng-click="model.enableUpdateInput(post._id)">
+                            <span class=" glyphicon glyphicon-edit"></span>
+                        </a>
+                        <a ng-if="model.enableEdit==post._id " class="btn btn-success" ng-click="model.updatePost(post)">
+                            <span class=" glyphicon glyphicon-ok-sign"></span>
+                        </a>
+                        <a class="btn btn-danger" ng-click="model.deletePost(post)">
+                            <span class=" glyphicon glyphicon-remove"></span>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-md-4 visible-lg visible-md visible-sm">
+        <h6>Your Friends</h6>
+        <ul class="list-group">
+            <li class="list-group-item active">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-md-6 col-md-4">
+                        Friends
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item borderless" ng-repeat="follow in model.follow">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-md-6 col-md-4">
+                        <a href="#!/profile/{{follow._id}}">
+                            <span class=" glyphicon glyphicon-user"></span>
+                        </a>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-6 col-md-4">
+                        <a href="#!/profile/{{follow._id}}">
+                            {{follow.username}}
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

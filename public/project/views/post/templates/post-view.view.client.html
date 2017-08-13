@@ -38,16 +38,19 @@
     </div>
 
 
-    <ul ng-if="model.searchResults" class="list-group">
+    <ul ng-if="model.comments" class="list-group">
         <li class="list-group-item borderless" ng-repeat="comment in model.comments">
             <div class="row">
                 <div class="col-lg-5 col-md-8 col-xs-11">
                     <p>
-                        {{comment.text}}
+                        {{comment.content}}
                     </p>
                 </div>
                 <div class="col-lg-3 visible-lg">
                     {{comment.dateCreated | date:'medium'}}
+                </div>
+                <div >
+                    {{model.comment._user}}
                 </div>
                 <div class="col-md-3 hidden-sm hidden-xs">
                 </div>

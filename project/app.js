@@ -11,3 +11,4 @@ console.log('server at project started!');
 require('./services/user.service.server');
 require('./services/post.service.server');
 require('./services/comment.service.server');
+require('./services/fatsecret.service.server');
