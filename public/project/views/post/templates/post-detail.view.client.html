@@ -1,0 +1,84 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand text-center logo" href="#!/">YaOrNa</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav pull-right">
+                <li ng-if="model.user._id"><a href="#!/profile">{{model.user.username}}</a></li>
+                <li ng-if="model.user._id"><a ng-click="model.logout()" href="">Logout</a></li>
+                <li ng-if="model.user._id==undefined"><a href="#!/register">Register</a></li>
+                <li ng-if="model.user._id==undefined"><a href="#!/login">Login</a></li>
+                <li ng-if="model.user.roles.indexOf('ADMIN')  > -1"><a href="#!/admin">Admin Dashboard</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div ng-show="model.message" class="alert alert-success">
+        {{model.message}}
+    </div>
+    <div class="post-detail col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="col-xs-12 col-sm-4 col-md-6 col-md-4 user-name-padding">
+            <p ng-if="model.user._id != model.post._user">
+                <a href="#!/profile/model.post._user" class=" glyphicon glyphicon-user"> {{findCommentUser(model.post._user)}}</a>
+            </p>
+            <p ng-if="model.user._id == model.post._user">
+                <a href="#!/profile" class=" glyphicon glyphicon-user"> {{findCommentUser(model.post._user)}}</a>
+            </p>
+        </div>
+        <div>
+        <textarea class="form-control"
+                  ng-model="model.post.description"
+                  id="description"
+                  rows="5"
+                  placeholder="Description" readonly></textarea>
+        </div>
+            <span class="glyphicon glyphicon-map-marker location-display"> {{model.post.location}}</span>
+        <a class="btn btn-success" href="" ng-click="model.ya(model.post)">{{model.post.ya.count}} Ya</a>
+        <a class="btn btn-danger pull-right" href="" ng-click="model.na(model.post)">{{model.post.na.count}} Na</a>
+    </div>
+
+    <div class="comment-detail col-xs-12 col-sm-8 col-md-8 col-lg-8">
+    <ul ng-if="model.comments" class="list-group">
+        <li class="list-group-item borderless comment-list" ng-repeat="comment in model.comments">
+            <div class="row ">
+                    <p class="comment-content">
+                        {{comment.content}}
+                    </p>
+                    <p class="comment-content comment-date">
+                        {{model.timeSince(comment.dateCreated)}} by {{comment.username}}
+                    </p>
+                <a ng-if="comment._user == model.user._id" class="btn btn-danger btn-xs pull-right" href="" ng-click="model.deleteComment(comment)">Delete</a>
+                <!--<a ng-if="comment._user == model.user._id" class="btn btn-warning btn-xs pull-right" href="" ng-click="model.updateComment(comment)">Update</a>-->
+            </div>
+        </li>
+    </ul>
+
+        <div  ng-if="model.user._id" class="input-group">
+            <label for="description">Add comment</label>
+            <input type="text"
+                   ng-model="model.comment.content"
+                   id="comment"
+                   class="form-control">
+        </div>
+        <div ng-if="model.user._id" class="col-xs-6 col-sm-6 col-md-6 col-md-6 comment-post-button">
+            <a class="btn btn-success" href="" ng-click="model.addComment(model.comment)">Post</a>
+        </div>
+        <!--<p>-->
+            <!--<a class="btn-group-justified btn-success">Post</a>-->
+        <!--</p>-->
+    <!--<div class="navbar-text pull-right">-->
+        <!--<a class="btn btn-default" ng-click="model.addComment(model.comment)">-->
+            <!--<span class="glyphicon glyphicon-ok"></span>-->
+        <!--</a>-->
+    <!--</div>-->
+    </div>
+</div>

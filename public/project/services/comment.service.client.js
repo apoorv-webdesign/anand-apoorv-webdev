@@ -10,7 +10,9 @@
     function commentService($http) {
         var api = {
             findCommentByPostId: findCommentByPostId,
-            addComment:addComment
+            addComment:addComment,
+            deleteComment: deleteComment,
+            updateComment: updateComment
         };
         return api;
 
@@ -35,7 +37,16 @@
         function deleteComment(comment){
             var url = '/api/project/deleteComment/'+comment._id;
             return $http
-                .delete(url)
+                .get(url)
+                .then(function (status) {
+                    return status;
+                });
+        }
+
+        function updateComment(comment){
+            var url = '/api/project/updateComment/';
+            return $http
+                .put(url, comment)
                 .then(function (status) {
                     return status;
                 });

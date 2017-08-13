@@ -34,7 +34,7 @@
                     currentUser:checkLoggedIn
                 }
             })
-            .when('/admin/users', {
+            .when('/admin', {
                 templateUrl: 'views/admin/templates/admin-users.view.client.html',
                 controller: 'adminUsersController',
                 controllerAs: 'model',
@@ -50,34 +50,43 @@
                     currentUser:checkLoggedIn
                 }
             })
-            .when('/user/home', {
-                templateUrl: 'views/post/templates/post-list.view.client.html',
-                controller: 'postListController',
-                controllerAs: 'model',
-                resolve:{
-                    currentUser:checkLoggedIn
-                }
-            })
-            .when('/user/post/:postId', {
-                templateUrl: 'views/post/templates/post-edit.view.client.html',
-                controller: 'postEditController',
-                controllerAs: 'model',
-                resolve:{
-                    currentUser:checkLoggedIn
-                }
-            })
+            // .when('/user/home', {
+            //     templateUrl: 'views/post/templates/post-list.view.client.html',
+            //     controller: 'postListController',
+            //     controllerAs: 'model',
+            //     resolve:{
+            //         currentUser:checkLoggedIn
+            //     }
+            // })
+            // .when('/user/post/:postId', {
+            //     templateUrl: 'views/post/templates/post-edit.view.client.html',
+            //     controller: 'postEditController',
+            //     controllerAs: 'model',
+            //     resolve:{
+            //         currentUser:checkLoggedIn
+            //     }
+            // })
+            //
+            // .when('/home/view/:postId', {
+            //     templateUrl: 'views/post/templates/post-detail.view.client.html',
+            //     controller: 'postViewController',
+            //     controllerAs: 'model',
+            //     resolve:{
+            //         currentUser:checkCurrentUser
+            //     }
+            // })
 
-            .when('/home/view/:postId', {
-                templateUrl: 'views/post/templates/post-view.view.client.html',
-                controller: 'postViewController',
+            .when('/post/:postId', {
+                templateUrl: 'views/post/templates/post-detail.view.client.html',
+                controller: 'postDetailViewController',
                 controllerAs: 'model',
                 resolve:{
                     currentUser:checkCurrentUser
                 }
             })
-            .when('#!/profile/:profileId', {
-                templateUrl: 'views/post/templates/post-view.view.client.html',
-                controller: 'postViewController',
+            .when('/profile/:userId', {
+                templateUrl: 'views/user/templates/profile-visit.view.client.html',
+                controller: 'profileController',
                 controllerAs: 'model',
                 resolve:{
                     currentUser:checkCurrentUser

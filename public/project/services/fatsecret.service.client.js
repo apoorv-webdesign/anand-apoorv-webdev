@@ -8,8 +8,10 @@
 
     function fatSecretService($http) {
         var api={
-            search: search
-        };
+            search: search,
+            createFatsecret: createFatsecret
+
+    };
         return api;
 
         function search(searchText){
@@ -18,6 +20,14 @@
             return $http.get(url)
                 .then(function (response) {
                     console.log(response);
+                    return response.data;
+                });
+        }
+
+        function createFatsecret(food){
+            var url= '/api/project/createFatsecret/';
+            return $http.post(url, food)
+                .then(function (response) {
                     return response.data;
                 });
         }

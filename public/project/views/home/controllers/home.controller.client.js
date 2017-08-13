@@ -15,7 +15,13 @@
         model.logout = logout;
         model.ya = ya;
         model.na =na;
+        model.disableYa = disableYa;
+        model.disableNa = disableNa;
+        model.postFatsecret = postFatsecret;
+        model.timeSince = timeSince;
 
+        // model.disableYaBtn = false;
+        // model.disableNaBtn = false;
         model.posts={};
 
         function init(){
@@ -63,7 +69,7 @@
                 .addFollow(model.user, user)
                 .then(function(result){
                     model.message = "Followed";
-                    //search(model.searchText);
+                    model.user._id.fuf = "Unfollow";
                 })
         }
 
@@ -72,20 +78,20 @@
                 .deleteFollow(model.user, user)
                 .then(function(result){
                     model.message = "Unfollowed";
-                    //search(model.searchText);
+                    model.user._id.fuf = "Follow";
                 })
         }
 
         function userFollowStatus(user){
             var currentUserFollows = model.user.follow;
             for (var i=0; i<currentUserFollows.length; i++){
-                if(user._id === currentUserFollows[i]){
-                    model.followStatus = "UnFollow"
-                    return true;
+                if(user._id == currentUserFollows[i]){
+                    //model.followStatus = "UnFollow"
+                    return "Unfollow";
                 }
             }
-            model.followStatus = "Follow"
-            return false;
+            //model.followStatus = "Follow"
+            return "Follow";
         }
 
         function logout(){
@@ -100,35 +106,101 @@
             return userService
                 .findUserById(userId)
                 .then(function(user){
-
+                    return user.username;
                 })
         }
 
         function ya(post){
-            // var y = post.na.count;
-            post.ya['count'] += 1;
-            console.log(post);
-            // post.ya._user = model.user;
-            postService
-                .ya(post)
-                .then(function(status){
-                    init();
-                })
+            //console.log()
+            if(post.ya._user.indexOf(model.user._id)<0) {
+                post.ya['count'] += 1;
+                post.ya._user = model.user;
+                postService
+                    .ya(post)
+                    .then(function (status) {
+                        init();
+                    })
+            }
         }
 
         function na(post){
-            // console.log(post)
-            // var n = post.na.count;
-            console.log(post.na['count'])
-            post.na['count'] += 1;
-            console.log(post.na['count'])
-            // post.na._user = model.user;
-            // console.log(post);
+            if(post.na._user.indexOf(model.user._id)<0) {
+                post.na['count'] += 1;
+                post.na._user = model.user;
+                postService
+                    .na(post)
+                    .then(function (status) {
+                        init();
+                    })
+            }
+        }
+
+        function disableYa(post){
+            if(post.ya._user.username.indexOf(model.user.username) > -1){
+                return "disabled"
+            }
+        }
+
+        function disableNa(){
+            if(post.na._user.username.indexOf(model.user.username) > -1){
+                return "disabled"
+            }
+        }
+
+        function createPost(post){
+            post._user = currentUser;
+            post.username = currentUser.username;
+            console.log(post);
             postService
-                .na(post)
-                .then(function(status){
-                    init();
+                .createPost(post)
+                .then(function(data){
+                    if(data){
+                        init();
+                        model.newPost={};
+                        model.postmessage = "Posted";
+                    }
                 })
+        }
+
+        function postFatsecret(food){
+            fatSecretService
+                .createFatsecret(food)
+                .then(function(status){
+                    console.log(status);
+                })
+
+            // post._user = currentUser;
+            // post.username = currentUser.username;
+            // //post._fatsecret = fatsecret;
+            // console.log(post)
+            // postService
+            //     .createPost(post, fatsecret)
+            //     .then(function(data){
+            //         if(data){
+            //             model.message = "Posted";
+            //         }
+            //     })
+        }
+
+        function timeSince(tst) {
+            var timeStamp = new Date(tst);
+            var now = new Date(),
+                secondsPast = (now.getTime() - timeStamp.getTime()) / 1000;
+            if(secondsPast < 60){
+                return timeAgo = parseInt(secondsPast) + 's ago';
+            }
+            if(secondsPast < 3600){
+                return timeAgo = parseInt(secondsPast/60) + 'm ago';
+            }
+            if(secondsPast <= 86400){
+                return timeAgo = parseInt(secondsPast/3600) + 'h ago';
+            }
+            if(secondsPast > 86400){
+                day = timeStamp.getDate();
+                month = timeStamp.toDateString().match(/ [a-zA-Z]*/)[0].replace(" ","");
+                year = timeStamp.getFullYear() == now.getFullYear() ? "" :  " "+timeStamp.getFullYear();
+                return timeAgo =  day + " " + month + year;
+            }
         }
     }
 })();

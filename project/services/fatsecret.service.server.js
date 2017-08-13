@@ -12,10 +12,11 @@
 // module.exports = fatAPI;
 
 var app = require('../../express');
-// var postModel = require('../model/post/post.model.server');
+var fatSecretModel = require('../model/fatsecret/fatsecret.model.server');
 const fatAPI = require('../../node_modules/fatsecret/examples/fatAPI');
 
 app.get('/api/project/fat/:searchText', search);
+app.post('/api/project/createFatsecret/', createFatsecret);
 
 function search(req, res){
     var searchText = req.params.searchText;
@@ -27,4 +28,13 @@ function search(req, res){
         .then(function(results) {
             res.json(results.foods.food);
         });
+}
+
+function createFatsecret(req, res){
+    console.log(req.body);
+    fatSecretModel
+        .createFatsecret(req.body)
+        .then(function(status){
+            res.send(status);
+        })
 }

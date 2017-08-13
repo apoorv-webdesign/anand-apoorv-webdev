@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Exo:700i');
 
 body {
-    background-color: #f8f8f8;
+    background-color: lightsteelblue;
     padding-top: 70px;
     padding-bottom: 50px;
     padding: 20px;
@@ -46,4 +46,119 @@ body {
 }
 .tnail{
     padding-top: 20px;
+}
+
+/*fatsecret detail css*/
+.fatsecret-detail {
+    font-size: small;
+    line-height: 1.4;
+}
+p {
+    margin: 0;
+}
+
+.performance-facts {
+    border: 1px solid black;
+    margin: 20px;
+    float: left;
+    width: 280px;
+    padding: 0.5rem;
+}
+.performance-facts__title {
+    font-weight: bold;
+    font-size: 2rem;
+    margin: 0 0 0.25rem 0;
+}
+.performance-facts__header {
+    border-bottom: 10px solid black;
+    padding: 0 0 0.25rem 0;
+    margin: 0 0 0.5rem 0;
+}
+.performance-facts__table {
+    width: 100%;
+}
+th, td {
+    font-weight: normal;
+    text-align: left;
+    padding: 0.25rem 0;
+    border-top: 1px solid black;
+    white-space: nowrap;
+}
+
+.blank-cell {
+    width: 1rem;
+    border-top: 0;
+}
+
+.small-info {
+    font-size: 0.7rem;
+}
+
+.performance-facts__table--small {
+@extend . performance-facts__table;
+    border-bottom: 1px solid #999;
+    margin: 0 0 0.5rem 0;
+}
+
+th, td {
+    border: 0;
+    padding: 0;
+}
+
+.performance-facts__table--grid {
+@extend .performance-facts__table;
+    margin: 0 0 0.5rem 0;
+}
+
+.text-center {
+    text-align: center;
+}
+.thick-end {
+    border-bottom: 10px solid black;
+}
+.thin-end {
+    border-bottom: 1px solid black;
+}
+
+/*fatsecret end*/
+
+.location-home-display{
+    padding-top:80px;
+    color:lightslategrey;
+    font-size: 10px;
+}
+
+.post-detail{
+    padding-top: 40px;
+}
+
+.comment-detail{
+    padding-top: 50px;
+}
+
+.comment-list{
+    margin: 0 0 10px 0;
+    background: aliceblue;
+}
+
+.comment-content{
+    padding-left: 20px;
+}
+
+.comment-date{
+    color:lightslategrey;
+    font-size: 10px;
+}
+
+.comment-post-button{
+    padding-top: 10px;
+}
+
+.location-display{
+    color:lightslategrey;
+    font-size: 10px;
+}
+
+.user-name-padding{
+    padding-bottom: 20px;
 }

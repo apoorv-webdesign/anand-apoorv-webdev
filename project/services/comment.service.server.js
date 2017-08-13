@@ -7,6 +7,8 @@ var commentModel = require('../model/comment/comment.model.server');
 
 app.get('/api/project/findPost/:postId', findCommentByPostId);
 app.post('/api/project/addComment/', addComment);
+app.get('/api/project/deleteComment/:commentId', deleteComment);
+app.put('/api/project/updateComment/', updateComment);
 
 function findCommentByPostId(req, res) {
     var id = req.params.postId;
@@ -23,6 +25,23 @@ function addComment(req, res) {
 
     commentModel
         .addComment(comment)
+        .then(function(status){
+            res.send(status);
+        })
+}
+
+function deleteComment(req, res){
+    var commentId = req.params.commentId;
+    commentModel
+        .deleteComment(commentId)
+        .then(function(status){
+            res.send(status);
+        })
+}
+
+function updateComment(req, res){
+    commentModel
+        .updateComment(req.body)
         .then(function(status){
             res.send(status);
         })
