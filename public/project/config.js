@@ -34,6 +34,14 @@
                     currentUser:checkLoggedIn
                 }
             })
+            .when('/restro', {
+                templateUrl: 'views/user/templates/profile-restro.view.client.html',
+                controller: 'profileController',
+                controllerAs: 'model',
+                resolve:{
+                    currentUser:checkLoggedIn
+                }
+            })
             .when('/admin', {
                 templateUrl: 'views/admin/templates/admin-users.view.client.html',
                 controller: 'adminUsersController',

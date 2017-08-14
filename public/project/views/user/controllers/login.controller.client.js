@@ -27,8 +27,14 @@
                 .login(username, password)
                 .then(returnUser, userNotExists);
 
-            function returnUser(found) {
-                $location.url('/');
+            function returnUser(user) {
+                if(user.roles.indexOf('RESTAURANT')<0){
+                    $location.url('/');
+                }
+                else{
+                    console.log('to restro');
+                    $location.url('/restro');
+                }
             }
 
             function userNotExists() {
