@@ -8,58 +8,58 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require("bcrypt-nodejs");
 
-// // var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-// // var googleConfig = {
-// //     clientID     : process.env.GOOGLE_CLIENT_ID,
-// //     clientSecret : process.env.GOOGLE_CLIENT_SECRET,
-// //     callbackURL  : process.env.GOOGLE_CALLBACK_URL
-// // };
-// //
-// // passport.use(new GoogleStrategy(googleConfig, googleStrategy));
-// //
-// // function googleStrategy(token, refreshToken, profile, done) {
-// //     //console.log(profile);
-// //     userModel
-// //         .findUserByGoogleId(profile.id)
-// //         .then(
-// //             function(user) {
-// //                 if(user) {
-// //                     return done(null, user);
-// //                 } else {
-// //                     var email = profile.emails[0].value;
-// //                     var emailParts = email.split("@");
-// //                     var newGoogleUser = {
-// //                         username:  emailParts[0],
-// //                         firstName: profile.name.givenName,
-// //                         lastName:  profile.name.familyName,
-// //                         email:     email,
-// //                         google: {
-// //                             id:    profile.id,
-// //                             token: token
-// //                         }
-// //                     };
-// //                     return userModel.createUser(newGoogleUser);
-// //                 }
-// //             },
-// //             function(err) {
-// //                 if (err) { return done(err); }
-// //             }
-// //         )
-// //         .then(
-// //             function(user){
-// //                 return done(null, user);
-// //             },
-// //             function(err){
-// //                 if (err) { return done(err); }
-// //             }
-// //         );
-// // }
-// //
-// // app.get('/auth/google/callback',
-// //     passport.authenticate('google', {
-// //         successRedirect: '/assignment/index.html#!/profile',
-// //         failureRedirect: '/assignment/index.html#!/login'
-//     }));
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var googleConfig = {
+    clientID     : process.env.GOOGLE_CLIENT_ID,
+    clientSecret : process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL  : process.env.GOOGLE_CALLBACK_URL
+};
+
+passport.use(new GoogleStrategy(googleConfig, googleStrategy));
+
+function googleStrategy(token, refreshToken, profile, done) {
+    //console.log(profile);
+    userModel
+        .findUserByGoogleId(profile.id)
+        .then(
+            function(user) {
+                if(user) {
+                    return done(null, user);
+                } else {
+                    var email = profile.emails[0].value;
+                    var emailParts = email.split("@");
+                    var newGoogleUser = {
+                        username:  emailParts[0],
+                        firstName: profile.name.givenName,
+                        lastName:  profile.name.familyName,
+                        email:     email,
+                        google: {
+                            id:    profile.id,
+                            token: token
+                        }
+                    };
+                    return userModel.createUser(newGoogleUser);
+                }
+            },
+            function(err) {
+                if (err) { return done(err); }
+            }
+        )
+        .then(
+            function(user){
+                return done(null, user);
+            },
+            function(err){
+                if (err) { return done(err); }
+            }
+        );
+}
+
+app.get('/auth/google/callback',
+    passport.authenticate('google', {
+        successRedirect: '/assignment/index.html#!/profile',
+        failureRedirect: '/assignment/index.html#!/login'
+    }));
 
 passport.use('assignmentLocal',new LocalStrategy(localStrategy));
 //passport.serializeUser(serializeUser);
