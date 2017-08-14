@@ -1,9 +1,9 @@
 (function(){
     angular
         .module('YON')
-        .controller('homeController', homeController);
+        .controller('homeControllerClient', homeControllerClient);
 
-    function homeController(postService, userService, fatSecretService, currentUser, $route, $location){
+    function homeControllerClient(postService, userService, fatSecretService, currentUser, $route, $location){
         var model = this;
         model.user = currentUser;
 

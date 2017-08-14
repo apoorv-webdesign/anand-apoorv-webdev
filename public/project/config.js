@@ -10,7 +10,7 @@
         $routeProvider
             .when('/', {
                 templateUrl: 'views/home/templates/home.view.client.html',
-                controller: 'homeController',
+                controller: 'homeControllerClient',
                 controllerAs: 'model',
                 resolve: {
                     currentUser: checkCurrentUser
@@ -95,6 +95,14 @@
             .when('/profile/:userId', {
                 templateUrl: 'views/user/templates/profile-visit.view.client.html',
                 controller: 'profileController',
+                controllerAs: 'model',
+                resolve:{
+                    currentUser:checkCurrentUser
+                }
+            })
+            .when('/fatsecret/:fatsecret', {
+                templateUrl: 'views/fatsecret/templates/fatsecret-detail.view.client.html',
+                controller: 'fatsecretController',
                 controllerAs: 'model',
                 resolve:{
                     currentUser:checkCurrentUser
