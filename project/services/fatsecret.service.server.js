@@ -13,28 +13,28 @@
 
 var app = require('../../express');
 //var fatSecretModel = require('../model/fatsecret/fatsecret.model.server');
-const fatAPI = require('../../node_modules/fatsecret/examples/fatAPI');
+//const fatAPI = require('../../node_modules/fatsecret/examples/fatAPI');
 
 app.get('/api/project/fat/:searchText', search);
 app.post('/api/project/createFatsecret/', createFatsecret);
 
 function search(req, res){
-    var searchText = req.params.searchText;
-     fatAPI
-        .method('foods.search', {
-            search_expression: searchText,
-            max_results: 10
-        })
-        .then(function(results) {
-            res.json(results.foods.food);
-        });
+    // var searchText = req.params.searchText;
+    //  fatAPI
+    //     .method('foods.search', {
+    //         search_expression: searchText,
+    //         max_results: 10
+    //     })
+    //     .then(function(results) {
+    //         res.json(results.foods.food);
+    //     });
 }
 
 function createFatsecret(req, res){
-    console.log(req.body);
-    fatSecretModel
-        .createFatsecret(req.body)
-        .then(function(status){
-            res.send(status);
-        })
+    // console.log(req.body);
+    // fatSecretModel
+    //     .createFatsecret(req.body)
+    //     .then(function(status){
+    //         res.send(status);
+    //     })
 }
