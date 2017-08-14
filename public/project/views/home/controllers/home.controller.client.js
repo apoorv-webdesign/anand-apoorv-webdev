@@ -86,11 +86,9 @@
             var currentUserFollows = model.user.follow;
             for (var i=0; i<currentUserFollows.length; i++){
                 if(user._id == currentUserFollows[i]){
-                    //model.followStatus = "UnFollow"
                     return "Unfollow";
                 }
             }
-            //model.followStatus = "Follow"
             return "Follow";
         }
 

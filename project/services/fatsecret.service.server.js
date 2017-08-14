@@ -12,7 +12,7 @@
 // module.exports = fatAPI;
 
 var app = require('../../express');
-var fatSecretModel = require('../model/fatsecret/fatsecret.model.server');
+//var fatSecretModel = require('../model/fatsecret/fatsecret.model.server');
 const fatAPI = require('../../node_modules/fatsecret/examples/fatAPI');
 
 app.get('/api/project/fat/:searchText', search);
