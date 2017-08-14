@@ -16,7 +16,7 @@ var postSchema = mongoose.Schema({
         count: {type: Number, default: 0},
         _user: [{type: mongoose.Schema.ObjectId, ref: "ProjectUserModel"}]
     },
-    _fatsecret: {type: mongoose.Schema.ObjectId, ref: "FatsecretModel",  unique: true},
+    _fatsecret: {type: mongoose.Schema.ObjectId, ref: "FatsecretModel"},
     dateCreated: {type: Date, default: Date.now}
 },{collection: "post"});
 
