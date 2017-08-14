@@ -8,15 +8,15 @@ var fatsecretSchema = require('./fatsecret.schema.server');
 var fatsecretModel = mongoose.model('FatsecretModel', fatsecretSchema);
 
 fatsecretModel.createFatsecret = createFatsecret;
-// postModel.findAllPostsForUser = findAllPostsForUser;
-// postModel.updatePost = updatePost;
-// postModel.findPostById = findPostById;
-// postModel.deletePost = deletePost;
-// postModel.search = search;
-// postModel.findAllFollowPosts = findAllFollowPosts;
+fatsecretModel.findFatsecretById = findFatsecretById;
 
 module.exports = fatsecretModel;
 
 function createFatsecret(fatsecret){
     return fatsecretModel.create(fatsecret);
+}
+
+function findFatsecretById(id){
+    console.log(id);
+    return fatsecretModel.findOne({food_id: id});
 }

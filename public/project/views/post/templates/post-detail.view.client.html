@@ -28,7 +28,7 @@
     <div class="post-detail col-xs-12 col-sm-4 col-md-4 col-lg-4">
         <div class="col-xs-12 col-sm-4 col-md-6 col-md-4 user-name-padding">
             <p ng-if="model.user._id != model.post._user">
-                <a href="#!/profile/model.post._user" class=" glyphicon glyphicon-user"> {{findCommentUser(model.post._user)}}</a>
+                <a href="#!/profile/{{model.post._user}}" class=" glyphicon glyphicon-user"> {{findCommentUser(model.post._user)}}</a>
             </p>
             <p ng-if="model.user._id == model.post._user">
                 <a href="#!/profile" class=" glyphicon glyphicon-user"> {{findCommentUser(model.post._user)}}</a>

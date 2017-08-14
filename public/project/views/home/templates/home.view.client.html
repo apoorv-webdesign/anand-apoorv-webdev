@@ -64,7 +64,7 @@
         <div ng-if="model.foodSearchResults" class="col-xs-12 col-sm-4 col-md-4 col-md-4">
             <h6 class="your-posts">Food Items </h6>
             <ul class="list-group">
-                <li class="list-group-item active">
+                <li class="list-group-item list-header">
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6 col-md-6">
                             Food Name
@@ -78,6 +78,7 @@
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6 col-md-6">
                             <p>{{food.food_name}}</p>
+                            <!--<a href="#!/fatsecret/{{food.food_id}}">{{food.food_name}}</a>-->
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 col-md-6">
                             <p>{{food.food_description}}</p>
@@ -93,7 +94,7 @@
         <div ng-if="model.userSearchResults" class="col-xs-12 col-sm-4 col-md-4 col-md-4">
             <h6 class="your-posts">Users </h6>
             <ul class="list-group">
-                <li class="list-group-item active">
+                <li class="list-group-item list-header">
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6 col-md-6">
                             Username
@@ -134,7 +135,7 @@
         <div ng-if="model.postSearchResults" class="col-xs-12 col-sm-4 col-md-4 col-md-4">
             <h6 class="your-posts">Posts </h6>
             <ul class="list-group">
-                <li class="list-group-item active">
+                <li class="list-group-item list-header">
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6 col-md-6">
                             Description

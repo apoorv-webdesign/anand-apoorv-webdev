@@ -19,6 +19,7 @@
         model.disableNa = disableNa;
         model.postFatsecret = postFatsecret;
         model.timeSince = timeSince;
+        model.createFatSecret =createFatSecret;
 
         // model.disableYaBtn = false;
         // model.disableNaBtn = false;
@@ -33,7 +34,7 @@
                     })
             }
             else{
-                search('veg');
+                search('veg alice');
             }
         }
         init();
@@ -183,6 +184,15 @@
                         })
                 })
         }
+
+        function createFatSecret(fatsecret){
+            fatSecretService
+                .createFatsecret(fatsecret)
+                .then(function(data) {
+                    console.log(status);
+                });
+        }
+
 
         function timeSince(tst) {
             var timeStamp = new Date(tst);

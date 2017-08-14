@@ -17,6 +17,8 @@ const fatAPI = require('../fatsecret/examples/fatAPI');
 
 app.get('/api/project/fat/:searchText', search);
 app.post('/api/project/createFatsecret/', createFatsecret);
+app.get('/api/project/findFatsecretById/:id', findFatsecretById);
+app.get('/api/project/searchById/:id',searchById);
 
 function search(req, res){
     var searchText = req.params.searchText;
@@ -29,11 +31,29 @@ function search(req, res){
             res.json(results.foods.food);
         });
 }
+function searchById(req, res) {
+    var searchText = req.params.id;
+    fatAPI
+        .method('food.get', {
+            food_id: searchText
+        })
+        .then(function (food) {
+            console.json(food);
+        });
+}
 
 function createFatsecret(req, res){
-    console.log(req.body);
     fatsecretModel
         .createFatsecret(req.body)
+        .then(function(status){
+            res.send(status);
+        })
+}
+
+function findFatsecretById(req, res){
+    var id = req.params.id;
+    fatsecretModel
+        .findFatsecretById(req.body)
         .then(function(status){
             res.send(status);
         })

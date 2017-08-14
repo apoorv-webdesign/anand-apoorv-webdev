@@ -164,5 +164,11 @@ th, td {
 }
 
 .user-name{
-    background-color: lightgrey;
+    background-color: darkslategray;
+    color:white;
+}
+
+.list-header{
+    background-color: darkslategray;
+    color:white;
 }
