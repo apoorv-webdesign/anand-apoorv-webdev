@@ -162,3 +162,7 @@ th, td {
 .user-name-padding{
     padding-bottom: 20px;
 }
+
+.user-name{
+    background-color: lightgrey;
+}

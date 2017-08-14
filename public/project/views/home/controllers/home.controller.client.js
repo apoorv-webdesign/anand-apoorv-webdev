@@ -32,6 +32,9 @@
                         model.posts = data;
                     })
             }
+            else{
+                search('veg');
+            }
         }
         init();
 
@@ -160,24 +163,25 @@
                 })
         }
 
-        function postFatsecret(food){
+        function postFatsecret(fatsecret){
             fatSecretService
-                .createFatsecret(food)
-                .then(function(status){
-                    console.log(status);
+                .createFatsecret(fatsecret)
+                .then(function(data) {
+                    console.log('fatsecret');
+                    var post = {};
+                    post._user = currentUser;
+                    post.username = currentUser.username;
+                    post._fatsecret = data;
+                    post.description = data.food_name + '---' + data.food_description;
+                    postService
+                        .createPost(post)
+                        .then(function (data) {
+                            if (data) {
+                                model.message = "Posted";
+                                $location.url('/post/'+data._id);
+                            }
+                        })
                 })
-
-            // post._user = currentUser;
-            // post.username = currentUser.username;
-            // //post._fatsecret = fatsecret;
-            // console.log(post)
-            // postService
-            //     .createPost(post, fatsecret)
-            //     .then(function(data){
-            //         if(data){
-            //             model.message = "Posted";
-            //         }
-            //     })
         }
 
         function timeSince(tst) {

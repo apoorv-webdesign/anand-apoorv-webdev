@@ -41,9 +41,9 @@
                   rows="5"
                   placeholder="Description" readonly></textarea>
         </div>
-            <span class="glyphicon glyphicon-map-marker location-display"> {{model.post.location}}</span>
-        <a class="btn btn-success" href="" ng-click="model.ya(model.post)">{{model.post.ya.count}} Ya</a>
-        <a class="btn btn-danger pull-right" href="" ng-click="model.na(model.post)">{{model.post.na.count}} Na</a>
+            <span ng-if="model.post.location" class="glyphicon glyphicon-map-marker location-display"> {{model.post.location}}</span>
+        <a ng-if="model.user._id" class="btn btn-success" href="" ng-click="model.ya(model.post)">{{model.post.ya.count}} Ya</a>
+        <a ng-if="model.user._id" class="btn btn-danger pull-right" href="" ng-click="model.na(model.post)">{{model.post.na.count}} Na</a>
     </div>
 
     <div class="comment-detail col-xs-12 col-sm-8 col-md-8 col-lg-8">

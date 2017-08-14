@@ -19,27 +19,6 @@
                 <li ng-if="model.user.roles.indexOf('ADMIN')  > -1"><a href="#!/admin">Admin Dashboard</a></li>
             </ul>
         </div>
-        <!--<div class="navbar-text pull-left paddingExtra">-->
-            <!--<a href="#!/">-->
-                <!--<span class="glyphicon glyphicon-home pull-left navbar-link"></span>-->
-            <!--</a>-->
-        <!--</div>-->
-        <!--<div class="navbar-header">-->
-            <!--<a ng-if="model.user._id" class="navbar-brand no-left-padding no-left-margin" href="#!/profile">-->
-                <!--Profile-->
-            <!--</a>-->
-        <!--</div>-->
-        <!--<div class="navbar-header pull-right">-->
-            <!--<a ng-if="model.user._id" ng-click="model.logout()" class="navbar-brand no-left-padding no-left-margin"-->
-               <!--href="">-->
-                <!--Logout-->
-            <!--</a>-->
-        <!--</div>-->
-        <!--<div class="navbar-header pull-right">-->
-            <!--<a class="navbar-brand no-left-padding no-left-margin" ng-if="model.user.roles.indexOf('ADMIN')  > -1" href="#!/admin">-->
-                <!--Admin Dashboard-->
-            <!--</a>-->
-        <!--</div>-->
     </div>
 </nav>
 
@@ -63,12 +42,12 @@
             <div class="form-group">
                 <label for="first-name">First Name</label>
                 <input ng-model="model.user.firstName" type="text" class="form-control" id="first-name"
-                       placeholder="Alice" disabled>
+                       placeholder="First Name" disabled>
             </div>
             <div class="form-group">
                 <label for="last-name">Last Name</label>
                 <input ng-model="model.user.lastName" type="text" class="form-control" id="last-name"
-                       placeholder="Wonderland" disabled>
+                       placeholder="Last Name" disabled>
             </div>
         </form>
     </div>

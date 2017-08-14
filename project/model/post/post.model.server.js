@@ -20,6 +20,8 @@ postModel.findAllFollowPosts = findAllFollowPosts;
 module.exports = postModel;
 
 function createPost(post){
+    console.log('-----------------------------------------');
+    console.log(post);
     return postModel.create(post);
 }
 

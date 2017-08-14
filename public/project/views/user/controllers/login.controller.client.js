@@ -28,12 +28,14 @@
                 .then(returnUser, userNotExists);
 
             function returnUser(user) {
-                if(user.roles.indexOf('RESTAURANT')<0){
-                    $location.url('/');
+                if(user.roles.indexOf('ADMIN')>-1){
+                    $location.url('/admin');
+                }
+                else if(user.roles.indexOf('RESTAURANT')>-1){
+                    $location.url('/restro');
                 }
                 else{
-                    console.log('to restro');
-                    $location.url('/restro');
+                    $location.url('/');
                 }
             }
 

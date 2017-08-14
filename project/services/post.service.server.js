@@ -25,7 +25,6 @@ app.put('/api/project/ya/:postId', updatePost);
 
 function createPost(req, res) {
     var post = req.body;
-
     postModel
         .createPost(post)
         .then(function(status){

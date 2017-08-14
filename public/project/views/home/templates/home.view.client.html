@@ -19,7 +19,7 @@
                 <li ng-if="model.user.roles.indexOf('ADMIN')  > -1"><a href="#!/admin">Admin Dashboard</a></li>
             </ul>
             <div class="input-group col-md-4 col-md-offset-4">
-                <input ng-model="searchText" ng-keyup="model.search(searchText)" type="text" class="form-control">
+                <input ng-model="searchText" placeholder="search food or user or posts" ng-keyup="model.search(searchText)" type="text" class="form-control">
                 <!--<input type="text" class="form-control" placeholder="Search" ng-model="searchText">-->
                 <div class="input-group-btn">
                     <a class="btn btn-default" ng-click="model.search(searchText)"><i
@@ -33,16 +33,19 @@
     <div class="col-xs-12 col-sm-3 col-md-3 tnail" ng-repeat="post in model.posts">
         <div class="thumbnail">
             <div class="embed-responsive embed-responsive-4by3">
-                <a href="#!/profile/post._id">
-                    <p>{{post.username}}</p>
+                <a ng-if="model.user._id != post._user" href="#!/profile/post._user">
+                    <p class="user-name">{{post.username}}</p>
                 </a>
-                <a ng-if="post._fatsecret==undefined" href="#!/post/{{post._id}}">
+                <a ng-if="model.user._id == post._user" href="#!/profile">
+                    <p class="user-name">{{post.username}}</p>
+                </a>
+                <a href="#!/post/{{post._id}}">
                     <p>{{post.description}}</p>
                 </a>
                 </a>
-                <a ng-if="post._fatsecret" href="#!/post/fatsecret/{{post._fatsecret._id}}">
-                    <p>{{post.description}}</p>
-                </a>
+                <!--<a ng-if="post._fatsecret" href="#!/post/fatsecret/{{post._fatsecret._id}}">-->
+                    <!--<p>{{post.description}}</p>-->
+                <!--</a>-->
                 <p>
                 <p class="location-home-display">{{post.location}}</p>
                 <p>
@@ -56,7 +59,6 @@
         </div>
     </div>
 </div>
-
 
     <div ng-if="model.user.username==undefined || model.searchText" class="container-fluid">
         <div ng-if="model.foodSearchResults" class="col-xs-12 col-sm-4 col-md-4 col-md-4">
@@ -113,7 +115,7 @@
                                 {{userSearchResult.username}}
                             </a>
                         </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-md-6">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-md-6 " ng-if="model.user.roles.indexOf('RESTAURANT')<0">
                             <a class="btn btn-warning"
                                ng-if="model.userFollowStatus(userSearchResult)=='Unfollow'"
                                ng-click="model.deleteFollow(userSearchResult)">{{model.userFollowStatus(userSearchResult)}}

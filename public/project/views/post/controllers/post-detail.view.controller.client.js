@@ -102,7 +102,7 @@
         }
 
         function na(post){
-            if(post.ya._user.indexOf(model.user._id)<0) {
+            if(post.na._user.indexOf(model.user._id)<0) {
                 post.na['count'] += 1;
                 post.na._user = model.user;
                 postService
